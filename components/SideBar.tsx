@@ -1,36 +1,36 @@
-'use client';
+import { Button } from "@/components/ui/button"
+import { RibbonIcon as Yarn, Scissors, Book, Users, Bookmark, Settings } from 'lucide-react'
 
-import { FC } from 'react';
-import { Button } from '@/components/ui/button';
-import { Home, Compass, Bell, Settings, PlusCircle } from 'lucide-react';
-
-interface SideBarProps {
-  setActiveTab: (tab: string) => void;
+export function Sidebar() {
+  return (
+    <aside className="sticky top-0 w-64 bg-white border-r h-screen p-4">
+      <nav className="space-y-2">
+        <Button variant="ghost" className="w-full justify-start">
+          <Yarn className="mr-2 h-4 w-4" />
+          My Projects
+        </Button>
+        <Button variant="ghost" className="w-full justify-start">
+          <Scissors className="mr-2 h-4 w-4" />
+          Patterns
+        </Button>
+        <Button variant="ghost" className="w-full justify-start">
+          <Book className="mr-2 h-4 w-4" />
+          Tutorials
+        </Button>
+        <Button variant="ghost" className="w-full justify-start">
+          <Users className="mr-2 h-4 w-4" />
+          Groups
+        </Button>
+        <Button variant="ghost" className="w-full justify-start">
+          <Bookmark className="mr-2 h-4 w-4" />
+          Saved
+        </Button>
+        <Button variant="ghost" className="w-full justify-start">
+          <Settings className="mr-2 h-4 w-4" />
+          Settings
+        </Button>
+      </nav>
+    </aside>
+  )
 }
 
-export const SideBar: FC<SideBarProps> = ({ setActiveTab }) => {
-  return (
-    <nav className="w-64 space-y-2">
-      <Button variant="ghost" className="w-full justify-start" onClick={() => setActiveTab('feed')}>
-        <Home className="mr-2 h-4 w-4" />
-        Home
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" onClick={() => setActiveTab('explore')}>
-        <Compass className="mr-2 h-4 w-4" />
-        Explore
-      </Button>
-      <Button variant="ghost" className="w-full justify-start">
-        <Bell className="mr-2 h-4 w-4" />
-        Notifications
-      </Button>
-      <Button variant="ghost" className="w-full justify-start">
-        <Settings className="mr-2 h-4 w-4" />
-        Settings
-      </Button>
-      <Button className="w-full mt-4">
-        <PlusCircle className="mr-2 h-4 w-4" />
-        New Post
-      </Button>
-    </nav>
-  );
-};
