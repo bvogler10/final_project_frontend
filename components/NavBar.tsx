@@ -6,7 +6,11 @@ import { Home, Search, Bell, MessageSquare, User } from 'lucide-react'
 export function NavBar() {
   return (
     <nav className="flex items-center justify-between p-4 bg-white border-b">
-      <Link href="/" className="text-2xl font-bold text-purple-600">CrochetSocial</Link>
+    
+    <Link href="/" className="text-2xl font-bold flex items-center">
+        <img src="/yarn_ball.jpeg" alt="App Icon" className="h-8 mr-2" />
+        CloseKnit
+      </Link>
       <div className="flex items-center space-x-4">
         <Input type="text" placeholder="Search..." className="w-64" />
         <Button variant="ghost" size="icon">
