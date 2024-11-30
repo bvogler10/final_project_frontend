@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Sidebar } from '@/components/ui/sidebar';
 import { Footer } from '@/components/Footer';
 import { Feed } from '@/components/Feed';
+import { PostList } from './pages/explore/PostList';
 
 export const HomePageComponent = () => {
   const [activeTab, setActiveTab] = useState<string>('feed');
@@ -13,7 +14,7 @@ export const HomePageComponent = () => {
       {/* Main content area */}
       <div className="container mx-auto px-4 py-6">
         {activeTab === 'feed' && <Feed />}
-        {/* Add Explore Component here when ready */}
+        <PostList/>
       </div>
     </div>
   );
