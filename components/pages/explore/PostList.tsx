@@ -17,7 +17,12 @@ export const PostList: FC = () => {
         .then(response => response.json())
         .then((json) => {
             console.log('json', json);
-            setPosts(json.data)
+            const sortedPosts = json.data.sort((a: Post, b: Post) => {
+                if (new Date(b.created_at) > new Date(a.created_at)) return 1;
+                if (new Date(b.created_at) < new Date(a.created_at)) return -1;
+                return 0;
+            });
+            setPosts(sortedPosts);
         })
 
         .catch((error) => {
@@ -33,6 +38,7 @@ export const PostList: FC = () => {
       <div className="space-y-6">
         {posts.map((post, index) => (            
           <PostListItem
+            key={post.id}
             id = {post.id}
             user = {post.user}
             user_info={post.user_info}
