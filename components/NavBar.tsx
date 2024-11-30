@@ -1,32 +1,48 @@
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Home, Search, Bell, MessageSquare, User } from 'lucide-react'
+import { Home, Search, Bell, MessageSquare, User, PlusSquare } from 'lucide-react'
 
 export function NavBar() {
   return (
-    <nav className="flex items-center justify-between p-4 bg-white border-b">
-    
-    <Link href="/" className="text-2xl font-bold flex items-center">
-        <img src="/yarn_ball.jpeg" alt="App Icon" className="h-8 mr-2" />
-        CloseKnit
-      </Link>
-      <div className="flex items-center space-x-4">
-        <Input type="text" placeholder="Search..." className="w-64" />
-        <Button variant="ghost" size="icon">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <div className="flex h-14 items-center w-full px-4">
+    <div className="mr-4 hidden md:flex">
+      <nav className="flex items-center space-x-6 text-sm font-medium">
+        <Link href="/" className="text-2xl font-bold flex items-center">
+          <img src="/yarn_ball.jpeg" alt="App Icon" className="h-8 mr-2" />
+          CloseKnit
+        </Link>
+        <a className="transition-colors hover:text-foreground/80 text-foreground" href="/">Explore</a>
+        <a className="transition-colors hover:text-foreground/80 text-muted-foreground" href="/inventory">My Inventory</a>
+        <a className="transition-colors hover:text-foreground/80 text-muted-foreground" href="/my-posts">My Posts</a>
+      </nav>
+    </div>
+    <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+      <div className="w-full flex-1 md:w-auto md:flex-none">
+        <Input placeholder="Search patterns..." />
+      </div>
+      <nav className="flex items-center">
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Home className="h-5 w-5" />
+          <span className="sr-only">Explore</span>
+        </Button>
+        <Button variant="ghost" size="icon" className="md:hidden">
           <Search className="h-5 w-5" />
           <span className="sr-only">Search</span>
         </Button>
         <Button variant="ghost" size="icon">
-          <Home className="h-5 w-5" />
-          <span className="sr-only">Explore</span>
+          <PlusSquare className="h-5 w-5" />
+          <span className="sr-only">New Post</span>
         </Button>
         <Button variant="ghost" size="icon">
           <User className="h-5 w-5" />
           <span className="sr-only">Profile</span>
         </Button>
-      </div>
-    </nav>
+      </nav>
+    </div>
+  </div>
+</header>
   )
 }
 

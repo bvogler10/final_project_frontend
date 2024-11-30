@@ -9,6 +9,7 @@ import { Post } from '@/types/Post';
 
 interface PostProps {
     post: Post,
+    isFollowing: boolean,
 }
 
 const getTimeAgo = (date: Date): string => {
@@ -36,43 +37,51 @@ const getTimeAgo = (date: Date): string => {
   
 export const PostListItem: FC<PostProps> = ({
     post,
+    isFollowing,
 }) => (
-  <Card className="w-1/2 mb-4">
-    <CardHeader>
-      <div className="flex items-center space-x-4">
+    <Card className='flex flex-col bg-card text-card-foreground'>
+        <CardHeader className="flex flex-row items-center gap-4">
         <Avatar>
           <AvatarImage src={post.user_info.avatar} alt={`@${post.user_info.username}`} />
           <AvatarFallback>{post.user_info.username[0].toUpperCase()}</AvatarFallback>
         </Avatar>
-        <div>
-          <CardTitle className="text-lg">{post.user_info.username}</CardTitle>
-          <p className="text-sm text-muted-foreground">{getTimeAgo(new Date(post.created_at))}</p>
+        <div className="flex flex-col">
+            <p className="text-sm font-semibold">@{post.user_info.username}</p>
+            <p className="text-xs text-muted-foreground">{getTimeAgo(new Date(post.created_at))}</p>
         </div>
-      </div>
+        {!isFollowing && (
+            <Button variant="outline" size="sm" className="ml-auto">
+              Follow
+            </Button>
+        )}
     </CardHeader>
     <CardContent>
+    <p className="mb-2 text-sm">{post.caption}</p>
+    <div className="flex-grow">
       <img
         src={post.image_url}
         alt={`Post by ${post.user_info.username}`}
-        className="w-full rounded-md"
+        width="300"
+        className="rounded-lg object-cover w-full h-auto"
       />
-      <p className="mt-4">{post.caption}</p>
+      </div>
+      
     </CardContent>
     <CardFooter className="flex justify-between">
-      <div className="flex space-x-4">
+        <div className="flex gap-2">
         <Button variant="ghost" size="sm">
-          <Heart className="mr-2 h-4 w-4" />
-          Like
+            <Heart className="h-4 w-4 mr-1" />
+            <span className="text-xs">Like</span>
         </Button>
         <Button variant="ghost" size="sm">
-          <MessageCircle className="mr-2 h-4 w-4" />
-          Comment
+            <MessageCircle className="h-4 w-4 mr-1" />
+            <span className="text-xs">Comment</span>
         </Button>
-      </div>
-      <Button variant="ghost" size="sm">
-        <Bookmark className="mr-2 h-4 w-4" />
-        Save
-      </Button>
+        </div>
+        <Button variant="ghost" size="sm">
+        <Bookmark className="h-4 w-4 mr-1" />
+        <span className="text-xs">Save</span>
+        </Button>
     </CardFooter>
   </Card>
 );
