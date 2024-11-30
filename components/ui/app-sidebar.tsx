@@ -8,14 +8,9 @@ import {
   
   export function AppSidebar() {
     return (
-      <Sidebar>
-        <SidebarHeader />
-        <SidebarContent>
-          <SidebarGroup />
-          <SidebarGroup />
-        </SidebarContent>
-        <SidebarFooter />
-      </Sidebar>
+        <Sidebar>
+        <SidebarContent />
+        </Sidebar>
     )
   }
   

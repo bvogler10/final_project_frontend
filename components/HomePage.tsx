@@ -9,10 +9,10 @@ export const HomePageComponent = () => {
   const [activeTab, setActiveTab] = useState<string>('feed');
 
   return (
-    <div className="flex-1 bg-background">
+    <div className="flex-1 w-full bg-background">
       {/* Main content area */}
-      <div className="container mx-auto px-4 py-6">
-        {activeTab === 'feed' && <PostList/>}
+      <div className="px-4 py-6">
+        <PostList/>
       </div>
     </div>
   );
