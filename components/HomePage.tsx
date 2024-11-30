@@ -13,8 +13,7 @@ export const HomePageComponent = () => {
     <div className="flex-1 bg-background">
       {/* Main content area */}
       <div className="container mx-auto px-4 py-6">
-        {activeTab === 'feed' && <Feed />}
-        <PostList/>
+        {activeTab === 'feed' && <PostList/>}
       </div>
     </div>
   );
