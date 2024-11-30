@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Sidebar } from '@/components/ui/sidebar';
 import { Footer } from '@/components/Footer';
-import { Feed } from '@/components/Feed';
 import { PostList } from './pages/explore/PostList';
 
 export const HomePageComponent = () => {

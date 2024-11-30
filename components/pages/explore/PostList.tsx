@@ -36,17 +36,14 @@ export const PostList: FC = () => {
   
     return (
       <div className="space-y-6 grid place-items-center">
-        {posts.map((post) => (            
-          <PostListItem
-            key={post.id}
-            id = {post.id}
-            user = {post.user}
-            user_info={post.user_info}
-            created_at={post.created_at}
-            image_url={post.image_url}
-            caption={post.caption}
-          />
-        ))}
+        {posts.map((post) => {
+            return (
+                <PostListItem
+                key={post.id}
+                post={post}
+                />
+            )
+        })}
       </div>
     );
   };
