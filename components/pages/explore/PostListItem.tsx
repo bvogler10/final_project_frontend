@@ -35,7 +35,7 @@ export const PostListItem: FC<Post> = ({
     id,
     user,
     created_at,
-    image,
+    image_url,
     caption,
     user_info,
 }) => (
@@ -54,7 +54,7 @@ export const PostListItem: FC<Post> = ({
     </CardHeader>
     <CardContent>
       <img
-        src={image}
+        src={image_url}
         alt={`Post by ${user_info.username}`}
         className="w-full rounded-md"
       />

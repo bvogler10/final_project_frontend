@@ -36,14 +36,14 @@ export const PostList: FC = () => {
   
     return (
       <div className="space-y-6">
-        {posts.map((post, index) => (            
+        {posts.map((post) => (            
           <PostListItem
             key={post.id}
             id = {post.id}
             user = {post.user}
             user_info={post.user_info}
             created_at={post.created_at}
-            image={post.image}
+            image_url={post.image_url}
             caption={post.caption}
           />
         ))}

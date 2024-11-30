@@ -6,7 +6,7 @@ export interface Post {
     user: string;
     created_at: Date;
     user_info: User;
-    image?: string;
+    image_url?: string;
     pattern?: number;
     caption?: string;
 }
