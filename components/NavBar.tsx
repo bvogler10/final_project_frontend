@@ -5,8 +5,8 @@ import { Home, Search, Bell, MessageSquare, User, PlusSquare } from 'lucide-reac
 
 export function NavBar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-  <div className="flex h-14 items-center w-full px-4">
+    <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <div className="flex h-14 items-center w-full px-4 bg-popover">
     <div className="mr-4 hidden md:flex">
       <nav className="flex items-center space-x-6 text-sm font-medium">
         <Link href="/" className="text-2xl font-bold flex items-center">

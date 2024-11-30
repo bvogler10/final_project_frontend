@@ -39,7 +39,7 @@ export const PostListItem: FC<PostProps> = ({
     post,
     isFollowing,
 }) => (
-    <Card className='flex flex-col bg-card text-card-foreground'>
+    <Card className='flex flex-col bg-card text-card-foreground border-none'>
         <CardHeader className="flex flex-row items-center gap-4">
         <Avatar>
           <AvatarImage src={post.user_info.avatar} alt={`@${post.user_info.username}`} />
@@ -50,7 +50,7 @@ export const PostListItem: FC<PostProps> = ({
             <p className="text-xs text-muted-foreground">{getTimeAgo(new Date(post.created_at))}</p>
         </div>
         {!isFollowing && (
-            <Button variant="outline" size="sm" className="ml-auto">
+            <Button size="sm" className="ml-auto bg-secondary">
               Follow
             </Button>
         )}
