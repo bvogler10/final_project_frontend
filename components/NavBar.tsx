@@ -10,7 +10,7 @@ export function NavBar() {
     <div className="mr-4 hidden md:flex">
       <nav className="flex items-center space-x-6 text-sm font-medium">
         <Link href="/" className="text-2xl font-bold flex items-center">
-          <img src="/yarn_ball.jpeg" alt="App Icon" className="h-8 mr-2" />
+          <img src="/purple_yarn_ball.png" alt="App Icon" className="h-10 mr-2" />
           CloseKnit
         </Link>
         <a className="transition-colors hover:text-foreground/80 text-foreground" href="/">Explore</a>
