@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 
 const signupSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  username: z.string().min(1, "Username is required"),
   email: z.string().email("Invalid email address"),
   password1: z.string().min(8, "Password must be at least 8 characters"),
   password2: z.string().min(8, "Password must be at least 8 characters"),
@@ -47,7 +47,7 @@ export default function SignUpDialog() {
     resolver: zodResolver(signupSchema),
     mode: "onSubmit",
     defaultValues: {
-      name: "",
+      username: "",
       email: "",
       password1: "",
       password2: "",
@@ -57,13 +57,13 @@ export default function SignUpDialog() {
   const handleSignup = async (data: SignupFormValues) => {
     try {
       const formData = {
-        name: data.name,
+        username: data.username,
         email: data.email,
         password1: data.password1,
         password2: data.password2,
       };
 
-      const result = await apiService.post("/api/auth/register", formData);
+      const result = await apiService.post("/api/auth/register/", JSON.stringify(formData));
 
       if (result.access) {
         toast({
@@ -109,12 +109,12 @@ export default function SignUpDialog() {
             >
               <FormField
                 control={signupForm.control}
-                name="name"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Full name" {...field} />
+                      <Input placeholder="Username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
