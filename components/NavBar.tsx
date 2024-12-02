@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Home, Search, Bell, MessageSquare, User, PlusSquare } from 'lucide-react'
 import SignUpDialog from './SignUpDialog'
+import LoginDialog from './LoginDialog'
 
 export function NavBar() {
   return (
@@ -41,6 +42,7 @@ export function NavBar() {
           <span className="sr-only">Profile</span>
         </Button>
         <SignUpDialog/>
+        <LoginDialog/>
       </nav>
     </div>
   </div>
