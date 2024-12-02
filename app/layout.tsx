@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import { NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
@@ -30,15 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <div className="flex h-screen overflow-hidden">
-            <div className="flex flex-col flex-grow">
-              <NavBar />
-              <main className="flex-grow overflow-auto p-4">
-                {children}
-              </main>
-            </div>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <div className="flex h-screen overflow-hidden">
+          <div className="flex flex-col flex-grow">
+            <NavBar />
+            <main className="flex-grow overflow-auto p-4">{children}</main>
           </div>
+        </div>
       </body>
     </html>
   );

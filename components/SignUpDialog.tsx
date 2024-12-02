@@ -67,15 +67,17 @@ export default function SignUpDialog() {
         password2: data.password2,
       };
 
-      const response = await apiService.post("/api/auth/register/", JSON.stringify(formData));
+      const response = await apiService.post(
+        "/api/auth/register/",
+        JSON.stringify(formData)
+      );
 
       if (response.access) {
-        handleLogin(response.user.pk, response.access, response.refresh)
+        handleLogin(response.user.pk, response.access, response.refresh);
         toast({
           title: "Success!",
           description: "You have successfully registered.",
         });
-
 
         setIsSignupOpen(false);
         router.push("/");
@@ -114,7 +116,7 @@ export default function SignUpDialog() {
               onSubmit={signupForm.handleSubmit(handleSignup)}
               className="space-y-4"
             >
-                <FormField
+              <FormField
                 control={signupForm.control}
                 name="name"
                 render={({ field }) => (
@@ -132,7 +134,7 @@ export default function SignUpDialog() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input placeholder="Create a username" {...field} />
                     </FormControl>
