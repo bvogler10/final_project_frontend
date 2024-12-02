@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Home, Search, Bell, MessageSquare, User, PlusSquare } from 'lucide-react'
+import SignUpDialog from './SignUpDialog'
 
 export function NavBar() {
   return (
@@ -39,6 +40,7 @@ export function NavBar() {
           <User className="h-5 w-5" />
           <span className="sr-only">Profile</span>
         </Button>
+        <SignUpDialog/>
       </nav>
     </div>
   </div>

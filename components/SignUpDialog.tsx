@@ -1,0 +1,179 @@
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "./ui/button";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import apiService from "@/app/services/apiService";
+
+const signupSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  password1: z.string().min(8, "Password must be at least 8 characters"),
+  password2: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type SignupFormValues = z.infer<typeof signupSchema>;
+
+export default function SignUpDialog() {
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  const signupForm = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      name: "",
+      email: "",
+      password1: "",
+      password2: "",
+    },
+  });
+
+  const handleSignup = async (data: SignupFormValues) => {
+    try {
+      const formData = {
+        name: data.name,
+        email: data.email,
+        password1: data.password1,
+        password2: data.password2,
+      };
+
+      const result = await apiService.post("/api/auth/register", formData);
+
+      if (result.access) {
+        toast({
+          title: "Success!",
+          description: "You have successfully registered.",
+        });
+        setIsSignupOpen(false);
+        router.push("/");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <>
+      <Button
+        variant="ghost"
+        onClick={(e) => {
+          setIsSignupOpen(true);
+        }}
+        className="w-full text-left hover:bg-secondary"
+      >
+        Sign Up
+      </Button>
+
+      <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Sign Up</DialogTitle>
+            <DialogDescription>
+              Create a new account by filling out the form below.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...signupForm}>
+            <form
+              onSubmit={signupForm.handleSubmit(handleSignup)}
+              className="space-y-4"
+            >
+              <FormField
+                control={signupForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signupForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Email address" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signupForm.control}
+                name="password1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Enter password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signupForm.control}
+                name="password2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Confirm password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full">
+                Sign Up
+              </Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
