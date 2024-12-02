@@ -24,6 +24,7 @@ import { Button } from "./ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
+import { handleLogin } from "@/app/lib/actions";
 
 const signupSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -66,13 +67,16 @@ export default function SignUpDialog() {
         password2: data.password2,
       };
 
-      const result = await apiService.post("/api/auth/register/", JSON.stringify(formData));
+      const response = await apiService.post("/api/auth/register/", JSON.stringify(formData));
 
-      if (result.access) {
+      if (response.access) {
+        handleLogin(response.user.pk, response.access, response.refresh)
         toast({
           title: "Success!",
           description: "You have successfully registered.",
         });
+
+
         setIsSignupOpen(false);
         router.push("/");
       }
