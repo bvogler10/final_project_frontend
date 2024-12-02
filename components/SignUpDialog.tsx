@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 
 const signupSchema = z.object({
+  name: z.string().min(1, "Name is required"),
   username: z.string().min(1, "Username is required"),
   email: z.string().email("Invalid email address"),
   password1: z.string().min(8, "Password must be at least 8 characters"),
@@ -47,6 +48,7 @@ export default function SignUpDialog() {
     resolver: zodResolver(signupSchema),
     mode: "onSubmit",
     defaultValues: {
+      name: "",
       username: "",
       email: "",
       password1: "",
@@ -57,6 +59,7 @@ export default function SignUpDialog() {
   const handleSignup = async (data: SignupFormValues) => {
     try {
       const formData = {
+        name: data.name,
         username: data.username,
         email: data.email,
         password1: data.password1,
@@ -107,6 +110,19 @@ export default function SignUpDialog() {
               onSubmit={signupForm.handleSubmit(handleSignup)}
               className="space-y-4"
             >
+                <FormField
+                control={signupForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={signupForm.control}
                 name="username"
@@ -114,7 +130,7 @@ export default function SignUpDialog() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Username" {...field} />
+                      <Input placeholder="Create a username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,7 +143,7 @@ export default function SignUpDialog() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email address" {...field} />
+                      <Input placeholder="Enter email address" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
