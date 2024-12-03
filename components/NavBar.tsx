@@ -11,8 +11,12 @@ import {
 } from "lucide-react";
 import SignUpDialog from "./SignUpDialog";
 import LoginDialog from "./LoginDialog";
+import { LogoutButton } from "./LogoutButton";
+import { getUserId } from "@/app/lib/actions";
 
-export function NavBar() {
+export const NavBar = async () => {
+  const userId = await getUserId()
+
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center w-full px-4 bg-popover">
@@ -67,8 +71,14 @@ export function NavBar() {
               <User className="h-5 w-5" />
               <span className="sr-only">Profile</span>
             </Button>
-            <SignUpDialog />
-            <LoginDialog />
+            {!userId ? (
+              <>
+                <SignUpDialog />
+                <LoginDialog />
+              </>
+            ) : (
+              <LogoutButton />
+            )}
           </nav>
         </div>
       </div>

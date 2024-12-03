@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PostList } from "./pages/explore/PostList";
+import { PostList } from "./PostList";
 import { Home, Compass } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
