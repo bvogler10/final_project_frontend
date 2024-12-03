@@ -15,7 +15,7 @@ import { LogoutButton } from "./LogoutButton";
 import { getUserId } from "@/app/lib/actions";
 
 export const NavBar = async () => {
-  const userId = await getUserId()
+  const userId = await getUserId();
 
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -63,10 +63,12 @@ export const NavBar = async () => {
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
             </Button>
-            <Button variant="ghost" size="icon">
-              <PlusSquare className="h-5 w-5" />
-              <span className="sr-only">New Post</span>
-            </Button>
+            <Link href="/create-post">
+              <Button variant="ghost" size="icon">
+                <PlusSquare className="h-5 w-5" />
+                <span className="sr-only">New Post</span>
+              </Button>
+            </Link>
             <Button variant="ghost" size="icon">
               <User className="h-5 w-5" />
               <span className="sr-only">Profile</span>
@@ -84,4 +86,4 @@ export const NavBar = async () => {
       </div>
     </header>
   );
-}
+};

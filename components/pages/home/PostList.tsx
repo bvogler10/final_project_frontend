@@ -14,12 +14,7 @@ export const PostList: FC<PostListProps> = ({ endpoint }) => {
   const getPosts = async () => {
     const tmpPosts = await apiService.get(endpoint);
 
-    const sortedPosts = tmpPosts.data.sort((a: Post, b: Post) => {
-      if (new Date(b.created_at) > new Date(a.created_at)) return 1;
-      if (new Date(b.created_at) < new Date(a.created_at)) return -1;
-      return 0;
-    });
-    setPosts(sortedPosts);
+    setPosts(tmpPosts.data);
   };
 
   useEffect(() => {
