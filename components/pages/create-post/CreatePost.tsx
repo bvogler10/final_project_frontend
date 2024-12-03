@@ -21,18 +21,18 @@ import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 
 export default function CreatePost() {
-  const [image, setImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
+  const [pattern, setPattern] = useState('');  
   const router = useRouter();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setImage(file)
+      const previewUrl = URL.createObjectURL(file); // Generate a preview URL
+      setPreviewImage(previewUrl); // Generate a preview URL
     }
   };
 
@@ -50,7 +50,8 @@ export default function CreatePost() {
         formData.append('image', image)
       }
 
-      const response = await apiService.post('/api/posts/create', formData)
+      const response = await apiService.createPost('/api/posts/create_post', formData)
+      console.log("Response", response)
 
     }
     // Here you would typically send the data to your backend
@@ -75,15 +76,15 @@ export default function CreatePost() {
               <TabsTrigger value="preview">Preview</TabsTrigger>
             </TabsList>
             <TabsContent value="create">
-              <form onSubmit={handleSubmit}>
+              <form encType="multipart/form-data" onSubmit={handleSubmit}>
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="image">Upload Photo</Label>
                     <div className="mt-1 flex items-center justify-center w-full">
-                      {image ? (
+                      {previewImage ? (
                         <div className="relative w-full aspect-square">
                           <Image
-                            src={image}
+                            src={previewImage}
                             alt="Uploaded image"
                             layout="fill"
                             objectFit="cover"
@@ -156,10 +157,10 @@ export default function CreatePost() {
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  {image && (
+                  {previewImage && (
                     <div className="relative w-full aspect-square mb-4">
                       <Image
-                        src={image}
+                        src={previewImage}
                         alt="Post preview"
                         layout="fill"
                         objectFit="cover"
