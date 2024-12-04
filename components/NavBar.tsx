@@ -13,6 +13,7 @@ import SignUpDialog from "./SignUpDialog";
 import LoginDialog from "./LoginDialog";
 import { LogoutButton } from "./LogoutButton";
 import { getUserId } from "@/app/lib/actions";
+import { useRouter } from "next/navigation";
 
 export const NavBar = async () => {
   const userId = await getUserId();
@@ -69,10 +70,12 @@ export const NavBar = async () => {
                 <span className="sr-only">New Post</span>
               </Button>
             </Link>
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-              <span className="sr-only">Profile</span>
-            </Button>
+            <Link href={`/profiles/${userId}`}>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+                <span className="sr-only">Profile</span>
+              </Button>
+            </Link>
             {!userId ? (
               <>
                 <SignUpDialog />
