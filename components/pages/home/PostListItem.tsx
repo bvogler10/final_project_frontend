@@ -88,12 +88,15 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
         <CardContent>
           <p className="mb-2 text-sm">{post.caption}</p>
           <div className="flex-grow">
-            <img
-              src={post.image_url}
-              alt={`Post by ${post.user_info.username}`}
-              width="300"
-              className="rounded-lg object-cover w-full h-auto"
-            />
+          {post.image_url !== "" && (
+  <img
+  src={post.image_url}
+  alt={`Post by ${post.user_info.username}`}
+  width="300"
+  className="rounded-lg object-cover w-full h-auto"
+/>
+)}
+            
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
@@ -130,11 +133,13 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
           <DialogContent className="w-[80vw] max-w-[1000px] h-[80vh] overflow-hidden">
             <div className="relative flex flex-col md:flex-row gap-4 h-full">
               <div className="flex-shrink-0 w-full md:w-1/2 h-full">
-                <img
-                  src={post.image_url}
-                  alt={`Post by ${post.user_info.username}`}
-                  className="rounded-lg object-cover w-full h-full"
-                />
+                {post.image_url !== "" && (
+                  <img
+                    src={post.image_url}
+                    alt={`Post by ${post.user_info.username}`}
+                    className="rounded-lg object-cover w-full h-full"
+                  />
+                )}
               </div>
 
               <div className="flex flex-col justify-start md:w-1/2 h-full p-4">
