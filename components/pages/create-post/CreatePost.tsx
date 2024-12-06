@@ -36,13 +36,16 @@ export default function CreatePost() {
   };
 
   const handleSubmit = async () => {
-    if (caption) {
+    
       const formData = new FormData();
       const user = await getUserId();
+      if (caption) {
+        formData.append("caption", caption);
+      }
       if (user) {
         formData.append("user", user);
       }
-      formData.append("caption", caption);
+      
       if (image) {
         formData.append("image", image);
       }
@@ -52,7 +55,6 @@ export default function CreatePost() {
         formData
       );
       console.log("Response", response);
-    }
     // Here you would typically send the data to your backend
     console.log({ image, caption });
     // For now, we'll just simulate a post creation and redirect
