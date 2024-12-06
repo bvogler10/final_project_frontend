@@ -69,12 +69,13 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
     const response = await apiService.put("/api/update_user", formData);
 
     if (response.message) {
-      setIsEditProfileOpen(false);
+      
       console.log("Response", response);
     }
-    setTimeout(() => {
-      router.push(`/profiles/${userId}`);
-    }, 1000);
+
+    setIsEditProfileOpen(false);
+    router.push(`/profiles/${userId}`);
+
   };
 
   return (
@@ -94,7 +95,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>
-              Create a new account by filling out the form below.
+              Edit your profile details below.
             </DialogDescription>
           </DialogHeader>
           <form
