@@ -22,30 +22,26 @@ import { getUserId } from "@/app/lib/actions";
 import { InventoryList } from "./InventoryList";
 import { PostList } from "../home/PostList";
 import apiService from "@/app/services/apiService";
-// import EditProfileDialog from './EditProfileDialog';
-
-// Mock data for demonstration
-const userProfile = {
-  username: "crochetmaster",
-  avatar: "/placeholder.svg",
-  bio: "Passionate about crochet and sharing patterns!",
-  link: "https://crochetpatterns.com",
-};
+import { EditProfileDialog } from "./EditProfileDialog";
+import { User } from "@/types/User";
 
 export default function MyProfile() {
-  const [profile, setProfile] = useState(userProfile);
+  const [profile, setProfile] = useState<User | null>(null);
   const [user, setUser] = useState<string | null>("");
+
   const getContent = async () => {
     const userId = await getUserId();
-    const profileInfo = await apiService.get(`/api/user/${userId}`)
-    setProfile(profileInfo.data)
+    const profileInfo = await apiService.get(`/api/user/${userId}`);
+    setProfile(profileInfo.data);
     setUser(userId);
   };
 
   useEffect(() => {
     getContent();
   }, []);
-
+  if (!profile) {
+    return <div>Profile not found</div>;
+  }
   return (
     <div className="container max-w-4xl mx-auto py-8">
       <div className="flex items-center justify-between mb-8">
@@ -70,7 +66,7 @@ export default function MyProfile() {
             )}
           </div>
         </div>
-        {/* <EditProfileDialog profile={getUserId()} onUpdate={handleProfileUpdate} /> */}
+        <EditProfileDialog profile={profile} />
       </div>
 
       <Tabs defaultValue="posts">
@@ -79,9 +75,8 @@ export default function MyProfile() {
           <TabsTrigger value="inventory">Inventory</TabsTrigger>
         </TabsList>
         <TabsContent value="posts" className="mt-6">
-        <div className="grid gap-4">
-
-            <PostList endpoint={`/api/user_posts/${user}`}/>
+          <div className="grid gap-4">
+            <PostList endpoint={`/api/user_posts/${user}`} />
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">

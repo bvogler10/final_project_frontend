@@ -48,12 +48,36 @@ const apiService = {
     },
     createPost: async function(url: string, data: any): Promise<any> {
         const token = await getAccessToken()
+        console.log(token, data)
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
                 method: 'POST',
                 body: data,
                 headers: {
                     'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then((json) => {
+                console.log('Response', json);
+
+                resolve(json);
+            }) 
+            .catch((error) => {
+                reject(error);
+            })
+        })
+    },
+    put: async function(url: string, data: any): Promise<any> {
+        const token = await getAccessToken();
+        return new Promise((resolve, reject) => {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+                method: 'PUT',
+                body: data,
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             })
             .then(response => response.json())

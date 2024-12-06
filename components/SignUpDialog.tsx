@@ -40,10 +40,6 @@ export default function SignUpDialog() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState<string[]>([]);
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
 
   const signupForm = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),

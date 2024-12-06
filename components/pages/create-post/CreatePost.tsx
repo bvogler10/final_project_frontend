@@ -16,7 +16,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Upload, X, Heart, MessageCircle, Bookmark } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
 import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 
@@ -24,35 +23,35 @@ export default function CreatePost() {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
-  const [pattern, setPattern] = useState('');  
+  const [pattern, setPattern] = useState("");
   const router = useRouter();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(file)
+      setImage(file);
       const previewUrl = URL.createObjectURL(file); // Generate a preview URL
       setPreviewImage(previewUrl); // Generate a preview URL
     }
   };
 
   const handleSubmit = async () => {
-    if (
-      caption
-    ) {
-      const formData = new FormData()
-      const user = await getUserId()
+    if (caption) {
+      const formData = new FormData();
+      const user = await getUserId();
       if (user) {
-        formData.append('user', user)
+        formData.append("user", user);
       }
-      formData.append('caption', caption)
+      formData.append("caption", caption);
       if (image) {
-        formData.append('image', image)
+        formData.append("image", image);
       }
 
-      const response = await apiService.createPost('/api/posts/create_post', formData)
-      console.log("Response", response)
-
+      const response = await apiService.createPost(
+        "/api/posts/create_post",
+        formData
+      );
+      console.log("Response", response);
     }
     // Here you would typically send the data to your backend
     console.log({ image, caption });
