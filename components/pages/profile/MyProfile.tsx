@@ -26,29 +26,18 @@ import { EditProfileDialog } from "./EditProfileDialog";
 import { User } from "@/types/User";
 import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";
 
-export default function MyProfile() {
-  const [profile, setProfile] = useState<User | null>(null);
-  const [user, setUser] = useState<string | null>("");
+interface MyProfileProps {
+  profile: User
+}
 
-  const getContent = async () => {
-    const userId = await getUserId();
-    const profileInfo = await apiService.get(`/api/user/${userId}`);
-    setProfile(profileInfo.data);
-    setUser(userId);
-  };
+export default function MyProfile({ profile } : MyProfileProps) {
 
-  useEffect(() => {
-    getContent();
-  }, []);
-  if (!profile) {
-    return <div>Profile not found</div>;
-  }
   return (
     <div className="container max-w-4xl mx-auto py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
           <Avatar className="w-24 h-24">
-            <AvatarImage src={profile.avatar} alt={profile.username} />
+            <AvatarImage src={profile.avatar? profile.avatar : ""} alt={profile.username} />
             <AvatarFallback>{profile.username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
           <div>
@@ -78,7 +67,7 @@ export default function MyProfile() {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           <div className="grid gap-4">
-            <PostList endpoint={`/api/user_posts/${user}`} />
+            <PostList endpoint={`/api/user_posts/${profile.id}`} />
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">

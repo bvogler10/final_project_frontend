@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PostList } from "../home/PostList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/types/User";
+import { UUID } from "crypto";
 
 interface OtherProfileProps {
     profile: User
@@ -19,7 +20,7 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
     <div className="flex items-center justify-between mb-8">
       <div className="flex items-center space-x-4">
         <Avatar className="w-24 h-24">
-          <AvatarImage src={profile.avatar} alt={profile.username} />
+          <AvatarImage src={profile.avatar? profile.avatar : ""} alt={profile.username} />
           <AvatarFallback>{profile.username[0].toUpperCase()}</AvatarFallback>
         </Avatar>
         <div>
@@ -33,7 +34,6 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
           )}
         </div>
       </div>
-      {/* <EditProfileDialog profile={getUserId()} onUpdate={handleProfileUpdate} /> */}
     </div>
       <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2">

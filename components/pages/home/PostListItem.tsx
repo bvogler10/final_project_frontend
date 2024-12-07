@@ -88,15 +88,14 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
         <CardContent>
           <p className="mb-2 text-sm">{post.caption}</p>
           <div className="flex-grow">
-          {post.image_url !== "" && (
-  <img
-  src={post.image_url}
-  alt={`Post by ${post.user_info.username}`}
-  width="300"
-  className="rounded-lg object-cover w-full h-auto"
-/>
-)}
-            
+            {post.image_url !== "" && (
+              <img
+                src={post.image_url}
+                alt={`Post by ${post.user_info.username}`}
+                width="300"
+                className="rounded-lg object-cover w-full h-auto"
+              />
+            )}
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
