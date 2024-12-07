@@ -24,6 +24,7 @@ import { PostList } from "../home/PostList";
 import apiService from "@/app/services/apiService";
 import { EditProfileDialog } from "./EditProfileDialog";
 import { User } from "@/types/User";
+import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";
 
 export default function MyProfile() {
   const [profile, setProfile] = useState<User | null>(null);
@@ -67,6 +68,7 @@ export default function MyProfile() {
           </div>
         </div>
         <EditProfileDialog profile={profile} />
+        <CreateInventoryItemDialog profile={profile}/>
       </div>
 
       <Tabs defaultValue="posts">
