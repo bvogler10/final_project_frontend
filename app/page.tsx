@@ -3,6 +3,7 @@ import { ExploreComponent } from "@/components/pages/home/ExplorePage";
 import { useEffect, useState } from "react";
 import { getUserId } from "./lib/actions";
 import WelcomePage from "@/components/WelcomePage";
+import { HomeComponent } from "@/components/pages/home/HomePage";
 
 export default function Home() {
   const [user, setUser] = useState<string | null>(null);
@@ -21,5 +22,5 @@ export default function Home() {
     return <div>Loading...</div>; // Show loading indicator while waiting for user data
   }
 
-  return <>{user ? <ExploreComponent userId={user}/> : <WelcomePage />}</>;
+  return <>{user ? <HomeComponent userId={user}/> : <WelcomePage />}</>;
 }

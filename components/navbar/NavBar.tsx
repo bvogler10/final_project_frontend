@@ -31,13 +31,13 @@ export const NavBar = async () => {
             </Link>
             <a
               className="transition-colors hover:text-foreground/80 text-foreground"
-              href="/"
+              href="/explore"
             >
               Explore
             </a>
             <a
               className="transition-colors hover:text-foreground/80 text-muted-foreground"
-              href="/inventory"
+              href="/"
             >
               Home
             </a>
