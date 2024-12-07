@@ -65,7 +65,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="container max-w-4xl mx-auto py-8">
+    <div className="container w-[700px] mx-auto py-8 justify-center items-center">
       <Card>
         <CardHeader>
           <CardTitle>Create a New Post</CardTitle>
@@ -83,7 +83,7 @@ export default function CreatePost() {
                     <Label htmlFor="image">Upload Photo</Label>
                     <div className="mt-1 flex items-center justify-center w-full">
                       {previewImage ? (
-                        <div className="relative w-full aspect-square">
+                        <div className="relative w-full h-[600px] aspect-square">
                           <Image
                             src={previewImage}
                             alt="Uploaded image"
@@ -96,7 +96,10 @@ export default function CreatePost() {
                             variant="destructive"
                             size="icon"
                             className="absolute top-2 right-2"
-                            onClick={() => setImage(null)}
+                            onClick={() => {
+                              setImage(null);
+                              setPreviewImage("");
+                            }}
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -145,8 +148,8 @@ export default function CreatePost() {
                 </div>
               </form>
             </TabsContent>
-            <TabsContent value="preview">
-              <Card>
+            <TabsContent value="preview" className="flex items-center justify-center">
+              <Card className="w-[550px]">
                 <CardHeader className="flex flex-row items-center gap-4">
                   <Avatar>
                     <AvatarImage src="/placeholder.svg" alt="@username" />
@@ -159,7 +162,7 @@ export default function CreatePost() {
                 </CardHeader>
                 <CardContent className="flex-grow">
                   {previewImage && (
-                    <div className="relative w-full aspect-square mb-4">
+                    <div className="relative w-[500px] h-[500px] aspect-square mb-4">
                       <Image
                         src={previewImage}
                         alt="Post preview"

@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Home,
-  Search,
-  SearchIcon,
-  User,
-} from "lucide-react";
+import { Home, PlusSquare, Search, SearchIcon, User } from "lucide-react";
 import SignUpDialog from "@/components/navbar/SignUpDialog";
 import LoginDialog from "@/components/navbar/LoginDialog";
 import { getUserId } from "@/app/lib/actions";
@@ -29,18 +24,25 @@ export const NavBar = async () => {
               />
               CloseKnit
             </Link>
-            <a
-              className="transition-colors hover:text-foreground/80 text-foreground"
+            <Link
               href="/explore"
+              className="transition-colors hover:text-foreground/80 text-foreground active:text-foreground/80"
             >
               Explore
-            </a>
-            <a
-              className="transition-colors hover:text-foreground/80 text-muted-foreground"
+            </Link>
+            <Link
               href="/"
+              className="transition-colors hover:text-foreground/80 text-muted-foreground active:text-foreground/80"
             >
               Home
-            </a>
+            </Link>
+            {userId && (
+          <Link href="/create-post" className="transition-colors hover:text-foreground/80 text-muted-foreground active:text-foreground/80">
+              Create Post
+
+              
+          </Link>
+        )}
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -54,11 +56,10 @@ export const NavBar = async () => {
             </Button>
             <Button variant="ghost" size="icon" className="md:hidden">
               <Search className="h-5 w-5" />
-              <SearchIcon/>
+              <SearchIcon />
               <span className="sr-only">Search</span>
-              
             </Button>
-            <ProfileDropDown userId={userId}/>
+            <ProfileDropDown userId={userId} />
           </nav>
         </div>
       </div>
