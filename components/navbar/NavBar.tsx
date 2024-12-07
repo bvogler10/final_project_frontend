@@ -5,12 +5,12 @@ import {
   Home,
   Search,
   User,
-  PlusSquare,
 } from "lucide-react";
 import SignUpDialog from "@/components/navbar/SignUpDialog";
 import LoginDialog from "@/components/navbar/LoginDialog";
 import { getUserId } from "@/app/lib/actions";
 import { LogoutButton } from "@/components/navbar/LogoutButton";
+import ProfileDropDown from "./ProfileDropDown";
 
 export const NavBar = async () => {
   const userId = await getUserId();
@@ -61,26 +61,7 @@ export const NavBar = async () => {
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
             </Button>
-            <Link href="/create-post">
-              <Button variant="ghost" size="icon">
-                <PlusSquare className="h-5 w-5" />
-                <span className="sr-only">New Post</span>
-              </Button>
-            </Link>
-            <Link href={`/profiles/${userId}`}>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Profile</span>
-              </Button>
-            </Link>
-            {!userId ? (
-              <>
-                <SignUpDialog />
-                <LoginDialog />
-              </>
-            ) : (
-              <LogoutButton />
-            )}
+            <ProfileDropDown userId={userId}/>
           </nav>
         </div>
       </div>

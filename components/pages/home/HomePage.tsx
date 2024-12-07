@@ -44,14 +44,10 @@ export const HomePageComponent = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="feed" className="mt-6">
-          <div className="h-[calc(100vh-12rem)] overflow-y-auto">
             <PostList endpoint="/api/posts" />
-          </div>
         </TabsContent>
         <TabsContent value="explore" className="mt-6">
-          <div className="h-[calc(100vh-12rem)] overflow-y-auto">
             <PostList endpoint="/api/posts" />
-          </div>
         </TabsContent>
       </Tabs>
     </main>
