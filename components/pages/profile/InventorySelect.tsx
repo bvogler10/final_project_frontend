@@ -29,7 +29,6 @@ export function InventorySelect({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Price</SelectLabel>
           {TYPE_OPTIONS.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

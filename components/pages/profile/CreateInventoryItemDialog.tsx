@@ -145,7 +145,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter name" {...field} />
+                      <Input placeholder="Enter item name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -158,7 +158,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Create a username" {...field} />
+                      <Input placeholder="Enter item description" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,7 +169,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
                 name="item_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Type</FormLabel>
+                    <FormLabel>Item Type</FormLabel>
                     <FormControl>
                       <InventorySelect
                         value={field.value || undefined} // Convert null to undefined for compatibility
