@@ -1,27 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Heart,
-  MessageCircle,
-  Bookmark,
-  LinkIcon,
-  Edit,
-  Upload,
+  LinkIcon
 } from "lucide-react";
-import { getUserId } from "@/app/lib/actions";
 import { InventoryList } from "./InventoryList";
 import { PostList } from "../home/PostList";
-import apiService from "@/app/services/apiService";
 import { EditProfileDialog } from "./EditProfileDialog";
 import { User } from "@/types/User";
 import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";

@@ -1,6 +1,4 @@
-import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,12 +16,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { User } from "@/types/User";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Edit, PlusSquare, Upload } from "lucide-react";
+import { PlusSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FC, useRef, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { InventorySelect } from "./InventorySelect";

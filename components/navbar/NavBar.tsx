@@ -4,16 +4,13 @@ import { Input } from "@/components/ui/input";
 import {
   Home,
   Search,
-  Bell,
-  MessageSquare,
   User,
   PlusSquare,
 } from "lucide-react";
-import SignUpDialog from "./SignUpDialog";
-import LoginDialog from "./LoginDialog";
-import { LogoutButton } from "./LogoutButton";
+import SignUpDialog from "@/components/navbar/SignUpDialog";
+import LoginDialog from "@/components/navbar/LoginDialog";
 import { getUserId } from "@/app/lib/actions";
-import { useRouter } from "next/navigation";
+import { LogoutButton } from "@/components/navbar/LogoutButton";
 
 export const NavBar = async () => {
   const userId = await getUserId();

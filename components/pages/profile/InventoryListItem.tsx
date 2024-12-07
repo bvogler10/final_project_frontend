@@ -1,10 +1,8 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import {
   Card,
-  CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";

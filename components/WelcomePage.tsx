@@ -1,10 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { RibbonIcon as Yarn, Users, BookOpen, Heart } from 'lucide-react'
-import LoginDialog from './LoginDialog'
-import SignUpDialog from './SignUpDialog'
+import LoginDialog from '@/components/navbar/LoginDialog'
+import SignUpDialog from '@/components/navbar/SignUpDialog'
 
 export default function WelcomePage() {
   return (

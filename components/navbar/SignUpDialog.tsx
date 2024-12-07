@@ -20,49 +20,51 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 
-const loginSchema = z.object({
+const signupSchema = z.object({
+  name: z.string().min(1, "Name is required"),
   username: z.string().min(1, "Username is required"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password1: z.string().min(8, "Password must be at least 8 characters"),
+  password2: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type SignupFormValues = z.infer<typeof signupSchema>;
 
-export default function LoginDialog() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+export default function SignUpDialog() {
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState<string[]>([]);
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
 
-  const loginForm = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const signupForm = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
     mode: "onSubmit",
     defaultValues: {
+      name: "",
       username: "",
       email: "",
-      password: "",
+      password1: "",
+      password2: "",
     },
   });
 
-  const login = async (data: LoginFormValues) => {
+  const handleSignup = async (data: SignupFormValues) => {
     try {
       const formData = {
+        name: data.name,
         username: data.username,
         email: data.email,
-        password: data.password,
+        password1: data.password1,
+        password2: data.password2,
       };
 
       const response = await apiService.post(
-        "/api/auth/login/",
+        "/api/auth/register/",
         JSON.stringify(formData)
       );
 
@@ -70,10 +72,10 @@ export default function LoginDialog() {
         handleLogin(response.user.pk, response.access, response.refresh);
         toast({
           title: "Success!",
-          description: "You have successfully logged in.",
+          description: "You have successfully registered.",
         });
 
-        setIsLoginOpen(false);
+        setIsSignupOpen(false);
         router.push("/");
       }
     } catch (error) {
@@ -90,41 +92,54 @@ export default function LoginDialog() {
       <Button
         variant="ghost"
         onClick={(e) => {
-          setIsLoginOpen(true);
+          setIsSignupOpen(true);
         }}
         className="w-full text-left hover:bg-secondary"
       >
-        Log In
+        Sign Up
       </Button>
 
-      <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
+      <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Log In</DialogTitle>
+            <DialogTitle>Sign Up</DialogTitle>
             <DialogDescription>
-              Please enter your credentials.
+              Create a new account by filling out the form below.
             </DialogDescription>
           </DialogHeader>
-          <Form {...loginForm}>
+          <Form {...signupForm}>
             <form
-              onSubmit={loginForm.handleSubmit(login)}
+              onSubmit={signupForm.handleSubmit(handleSignup)}
               className="space-y-4"
             >
               <FormField
-                control={loginForm.control}
-                name="username"
+                control={signupForm.control}
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter username" {...field} />
+                      <Input placeholder="Enter name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
-                control={loginForm.control}
+                control={signupForm.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Create a username" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signupForm.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -137,8 +152,8 @@ export default function LoginDialog() {
                 )}
               />
               <FormField
-                control={loginForm.control}
-                name="password"
+                control={signupForm.control}
+                name="password1"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
@@ -153,8 +168,25 @@ export default function LoginDialog() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={signupForm.control}
+                name="password2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Confirm password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <Button type="submit" className="w-full">
-                Log In
+                Sign Up
               </Button>
             </form>
           </Form>

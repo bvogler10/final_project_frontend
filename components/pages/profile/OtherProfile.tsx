@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Compass, LinkIcon } from "lucide-react";
+import { Home, LinkIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PostList } from "../home/PostList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/types/User";
-import { UUID } from "crypto";
 
 interface OtherProfileProps {
     profile: User
