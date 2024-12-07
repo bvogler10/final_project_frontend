@@ -1,5 +1,5 @@
 "use client";
-import { HomePageComponent } from "@/components/pages/home/HomePage";
+import { ExploreComponent } from "@/components/pages/home/ExplorePage";
 import { useEffect, useState } from "react";
 import { getUserId } from "./lib/actions";
 import WelcomePage from "@/components/WelcomePage";
@@ -21,5 +21,5 @@ export default function Home() {
     return <div>Loading...</div>; // Show loading indicator while waiting for user data
   }
 
-  return <>{user ? <HomePageComponent /> : <WelcomePage />}</>;
+  return <>{user ? <ExploreComponent userId={user}/> : <WelcomePage />}</>;
 }

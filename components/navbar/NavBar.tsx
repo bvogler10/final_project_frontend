@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import {
   Home,
   Search,
+  SearchIcon,
   User,
 } from "lucide-react";
 import SignUpDialog from "@/components/navbar/SignUpDialog";
@@ -38,13 +39,7 @@ export const NavBar = async () => {
               className="transition-colors hover:text-foreground/80 text-muted-foreground"
               href="/inventory"
             >
-              My Inventory
-            </a>
-            <a
-              className="transition-colors hover:text-foreground/80 text-muted-foreground"
-              href="/my-posts"
-            >
-              My Posts
+              Home
             </a>
           </nav>
         </div>
@@ -59,7 +54,9 @@ export const NavBar = async () => {
             </Button>
             <Button variant="ghost" size="icon" className="md:hidden">
               <Search className="h-5 w-5" />
+              <SearchIcon/>
               <span className="sr-only">Search</span>
+              
             </Button>
             <ProfileDropDown userId={userId}/>
           </nav>
