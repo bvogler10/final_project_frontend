@@ -6,6 +6,6 @@ export interface InventoryItem {
     user: User;
     name: string;
     item_type: string;
-    descrption: string;
+    description: string;
     image_url?: string;
 }

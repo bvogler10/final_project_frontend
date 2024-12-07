@@ -8,25 +8,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/hooks/use-toast";
 import { User } from "@/types/User";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useRef, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import * as z from "zod";
 
 interface EditProfileDialogProps {
   profile: User;
@@ -85,7 +73,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
         onClick={(e) => {
           setIsEditProfileOpen(true);
         }}
-        className="w-full text-left hover:bg-secondary"
+        className="text-left hover:bg-secondary"
       >
         <Edit className="w-4 h-4 mr-2" />
         Edit Profile

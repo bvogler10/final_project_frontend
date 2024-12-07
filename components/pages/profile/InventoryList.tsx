@@ -20,7 +20,7 @@ export const InventoryList: FC = () => {
   }, []);
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       {inventory.map((item) => (
         <InventoryListItem key={item.id} item={item} />
       ))}
