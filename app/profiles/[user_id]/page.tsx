@@ -4,6 +4,7 @@ import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import MyProfile from "@/components/pages/profile/MyProfile";
 import OtherProfile from "@/components/pages/profile/OtherProfile";
+import WelcomePage from "@/components/WelcomePage";
 import { User } from "@/types/User";
 import { getCipherInfo } from "crypto";
 import { useParams } from "next/navigation";
@@ -49,11 +50,13 @@ export default function ProfilePage() {
 
   return (
     <>
-      {profile_id === user ? (
-        <MyProfile profile={profile} />
-      ) : (
-        <OtherProfile profile={profile} />
-      )}
-    </>
+    {!user ? (
+      <WelcomePage />
+    ) : profile_id === user ? (
+      <MyProfile profile={profile} />
+    ) : (
+      <OtherProfile profile={profile} />
+    )}
+  </>
   );
 }
