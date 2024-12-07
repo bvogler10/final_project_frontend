@@ -61,13 +61,19 @@ export default function MyProfile({ profile } : MyProfileProps) {
       </div>
 
       <Tabs defaultValue="posts">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="posts">Posts</TabsTrigger>
-          <TabsTrigger value="inventory">Inventory</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="posts">My Posts</TabsTrigger>
+          <TabsTrigger value="patterns">My Patterns</TabsTrigger>
+          <TabsTrigger value="inventory">My Inventory</TabsTrigger>
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           <div className="grid gap-4">
             <PostList endpoint={`/api/user_posts/${profile.id}`} />
+          </div>
+        </TabsContent>
+        <TabsContent value="patterns" className="mt-6">
+          <div className="grid gap-4">
+            
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">
