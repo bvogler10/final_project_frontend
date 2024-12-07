@@ -15,7 +15,7 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
   const [activeTab, setActiveTab] = useState("posts");
   
   return (
-    <div className="container max-w-4xl mx-auto py-8">
+    <div className="container w-full mx-auto py-8">
     <div className="flex items-center justify-between mb-8">
       <div className="flex items-center space-x-4">
         <Avatar className="w-24 h-24">
@@ -50,13 +50,11 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           <div className="h-[calc(100vh-12rem)] overflow-y-auto">
-            <PostList endpoint="/api/posts" />
+            <PostList endpoint="/api/posts" isFollowing={false}/>
           </div>
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
-          <div className="h-[calc(100vh-12rem)] overflow-y-auto">
-            <PostList endpoint="/api/posts" />
-          </div>
+          {/* Patterns */}
         </TabsContent>
       </Tabs>
       </div>

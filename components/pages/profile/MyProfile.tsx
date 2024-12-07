@@ -18,7 +18,7 @@ interface MyProfileProps {
 export default function MyProfile({ profile } : MyProfileProps) {
 
   return (
-    <div className="container max-w-4xl mx-auto py-8">
+    <div className="container w-full mx-auto py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
           <Avatar className="w-24 h-24">
@@ -53,7 +53,7 @@ export default function MyProfile({ profile } : MyProfileProps) {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           <div className="grid gap-4">
-            <PostList endpoint={`/api/user_posts/${profile.id}`} />
+            <PostList endpoint={`/api/user_posts/${profile.id}`} isFollowing={true} />
           </div>
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">

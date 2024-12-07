@@ -7,9 +7,10 @@ import { Post } from "@/types/Post";
 
 interface PostListProps {
   endpoint: string;
+  isFollowing: boolean;
 }
 
-export const PostList: FC<PostListProps> = ({ endpoint }) => {
+export const PostList: FC<PostListProps> = ({ endpoint, isFollowing }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const getPosts = async () => {
     const tmpPosts = await apiService.get(endpoint);
@@ -24,7 +25,7 @@ export const PostList: FC<PostListProps> = ({ endpoint }) => {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {posts.map((post) => (
-        <PostListItem key={post.id} post={post} isFollowing={false} />
+        <PostListItem key={post.id} post={post} isFollowing={isFollowing} />
       ))}
     </div>
   );

@@ -7,7 +7,7 @@ import OtherProfile from "@/components/pages/profile/OtherProfile";
 import WelcomePage from "@/components/WelcomePage";
 import { User } from "@/types/User";
 import { getCipherInfo } from "crypto";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
@@ -19,6 +19,14 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState<User | null>(null);
   const [user, setUser] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const router = useRouter(); // Initialize the router
+
+  useEffect(() => {
+    // Redirect to home page if user is not valid
+    if (user === null) {
+      router.push("/"); // Redirect to home
+    }
+  }, [user, router]);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -50,9 +58,7 @@ export default function ProfilePage() {
 
   return (
     <>
-    {!user ? (
-      <WelcomePage />
-    ) : profile_id === user ? (
+    {profile_id === user ? (
       <MyProfile profile={profile} />
     ) : (
       <OtherProfile profile={profile} />

@@ -40,9 +40,9 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           {userId ? (
-            <PostList endpoint="/api/posts/exclude_user" />
+            <PostList endpoint="/api/posts/exclude_user" isFollowing={false}/>
           ) : (
-            <PostList endpoint="/api/posts" />
+            <PostList endpoint="/api/posts" isFollowing={true}/>
           )}
         </TabsContent>
         <TabsContent value="patterns" className="mt-6"></TabsContent>
