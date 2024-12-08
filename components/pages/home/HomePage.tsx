@@ -6,6 +6,7 @@ import { PlusSquare } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { PatternList } from "./PatternList";
 
 interface HomeComponentProps {
   userId: string | null;
@@ -25,10 +26,16 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
             Discover posts and patterns shared by users you follow!
           </p>
         </div>
-        {userId && (
+        {userId && activeTab==="posts" ? (
           <Link href="/create-post">
             <Button className="mt-4 sm:mt-0 sm:ml-4">
               <PlusSquare className="h-5 w-5" /> Create Post
+            </Button>
+          </Link>
+        ) : (
+          <Link href="/create-pattern">
+            <Button className="mt-4 sm:mt-0 sm:ml-4">
+              <PlusSquare className="h-5 w-5" /> Create Pattern
             </Button>
           </Link>
         )}
@@ -45,7 +52,14 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
             <PostList endpoint="/api/posts" isFollowing={true}/>
           )}
         </TabsContent>
-        <TabsContent value="patterns" className="mt-6"></TabsContent>
+        <TabsContent value="patterns" className="mt-6">
+        {userId ? (
+            <PatternList endpoint="/api/patterns/following" isFollowing={true}/>
+          ) : (
+            <PostList endpoint="/api/patterns/" isFollowing={true}/>
+          )}
+
+        </TabsContent>
       </Tabs>
     </main>
   );

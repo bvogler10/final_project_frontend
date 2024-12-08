@@ -83,7 +83,7 @@ export default function MyProfile({ profile } : MyProfileProps) {
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
           <div className="grid gap-4">
-            <PatternList endpoint="/api/patterns"/>
+            <PatternList endpoint={`/api/user_patterns/${profile.id}`} isFollowing={true}/>
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">

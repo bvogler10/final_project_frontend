@@ -14,31 +14,32 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Pattern } from '@/types/Pattern';
-
-interface PatternData {
-  id: string;
-  created_at: string;
-  creator_info: {
-    id: string;
-    avatar: string;
-    name: string;
-    username: string;
-  };
-  difficulty: string;
-  name: string;
-  description: string;
-  image_url: string;
-}
+import apiService from '@/app/services/apiService';
 
 interface PatternListItemProps {
   pattern: Pattern;
+  isFollowing: boolean;
 }
 
-export const PatternListItem: React.FC<PatternListItemProps> = ({ pattern }) => {
+export const PatternListItem: React.FC<PatternListItemProps> = ({ pattern, isFollowing }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const toggleDescription = () => {
     setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
+
+  const handleFollow = async () => {
+    const otherUser = pattern.creator_info.id
+    try {
+      console.log('following', otherUser)
+      const response = await apiService.follow(`/api/user/follow/${otherUser}`)
+      if (response) {
+        console.log("Follow Response:", response)
+      }
+    } catch (e) {
+      console.error('Error:', e)
+    }
+    
   };
 
   return (
@@ -54,6 +55,11 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({ pattern }) => 
               <CardTitle>{pattern.name}</CardTitle>
               <p className="text-sm text-muted-foreground">by {pattern.creator_info.username}</p>
             </div>
+            {!isFollowing && (
+            <Button onClick={() => handleFollow()} size="sm" className="ml-auto bg-secondary">
+              Follow
+            </Button>
+          )}
           </CardHeader>
           <CardContent>
             <div className="relative w-full aspect-video mb-4">

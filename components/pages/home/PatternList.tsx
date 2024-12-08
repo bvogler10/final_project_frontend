@@ -9,9 +9,10 @@ import { Pattern } from "@/types/Pattern";
 
 interface PatternListProps {
   endpoint: string;
+  isFollowing: boolean;
 }
 
-export const PatternList: FC<PatternListProps> = ({ endpoint }) => {
+export const PatternList: FC<PatternListProps> = ({ endpoint, isFollowing }) => {
   const [patterns, setPatterns] = useState<Pattern[]>([]);
   const getPosts = async () => {
     const tmpPatterns = await apiService.get(endpoint);
@@ -26,7 +27,7 @@ export const PatternList: FC<PatternListProps> = ({ endpoint }) => {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {patterns.map((pattern) => (
-        <PatternListItem key={pattern.id} pattern={pattern}/>
+        <PatternListItem key={pattern.id} pattern={pattern} isFollowing={isFollowing}/>
       ))}
     </div>
   );
