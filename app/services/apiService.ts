@@ -47,6 +47,27 @@ const apiService = {
             })
         })
     },
+    follow: async function(url: string): Promise<any> {
+        const token = await getAccessToken()
+        return new Promise((resolve, reject) => {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then((json) => {
+                console.log('Response', json);
+
+                resolve(json);
+            }) 
+            .catch((error) => {
+                reject(error);
+            })
+        })
+    },
     createPost: async function(url: string, data: any): Promise<any> {
         const token = await getAccessToken()
         console.log(token, data)

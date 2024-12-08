@@ -40,7 +40,7 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           {userId ? (
-            <PostList endpoint="/api/posts/exclude_user" isFollowing={true}/>
+            <PostList endpoint="/api/posts/following" isFollowing={true}/>
           ) : (
             <PostList endpoint="/api/posts" isFollowing={true}/>
           )}

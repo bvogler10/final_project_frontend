@@ -6,7 +6,6 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import apiService from "@/app/services/apiService";
 
 interface PostProps {
   post: Post;
@@ -57,6 +57,19 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
+  const handleFollow = async () => {
+    const otherUser = post.user_info.id
+    try {
+      console.log('following', otherUser)
+      const response = await apiService.follow(`/api/user/follow/${otherUser}`)
+      if (response) {
+        console.log("Follow Response:", response)
+      }
+    } catch (e) {
+      console.error('Error:', e)
+    }
+    
+  };
   return (
     <>
       <Card
@@ -80,7 +93,7 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
             </p>
           </div>
           {!isFollowing && (
-            <Button size="sm" className="ml-auto bg-secondary">
+            <Button onClick={() => handleFollow()} size="sm" className="ml-auto bg-secondary">
               Follow
             </Button>
           )}
