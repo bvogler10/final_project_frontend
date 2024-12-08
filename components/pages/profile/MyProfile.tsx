@@ -11,16 +11,36 @@ import { InventoryList } from "./InventoryList";
 import { PostList } from "../home/PostList";
 import { EditProfileDialog } from "./EditProfileDialog";
 import { User } from "@/types/User";
+import { Pattern } from "@/types/Pattern";
+
 import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ActionsDropDown from "./ActionsDropDown";
+import { getUserId } from "@/app/lib/actions";
+import apiService from "@/app/services/apiService";
+import { useEffect, useState } from "react";
+import { PatternListItem } from "../home/PatternListItem";
+
 
 interface MyProfileProps {
   profile: User
 }
 
 export default function MyProfile({ profile } : MyProfileProps) {
+ const [pattern, setPattern] = useState<Pattern | null>()
+
+  const getPatterns = async () => {
+    const userId = await getUserId()
+    const tmpInventory = await apiService.get("/api/patterns");
+    
+    console.log(tmpInventory);
+    setPattern(tmpInventory.data[0])
+  };
+
+  useEffect(() => {
+    getPatterns();
+  }, []);
 
   return (
     <div className="container w-full mx-auto py-8">
@@ -62,7 +82,9 @@ export default function MyProfile({ profile } : MyProfileProps) {
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
           <div className="grid gap-4">
-            
+            {pattern && (
+              <PatternListItem pattern={pattern}/>
+            )}
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">
