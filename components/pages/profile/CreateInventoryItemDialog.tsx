@@ -114,10 +114,9 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
         onClick={(e) => {
           setIsCreateInventoryOpen(true);
         }}
-        className="text-left hover:bg-secondary"
+        className="text-left"
       >
-        <PlusSquare className="w-4 h-4 mr-2" />
-        Add Inventory Item
+        Add Inventory
       </Button>
       <Dialog
         open={isCreateInventoryOpen}

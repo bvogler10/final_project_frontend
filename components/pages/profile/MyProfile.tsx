@@ -3,13 +3,18 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  LinkIcon
+  LinkIcon,
+  PlusSquare,
+  Ribbon
 } from "lucide-react";
 import { InventoryList } from "./InventoryList";
 import { PostList } from "../home/PostList";
 import { EditProfileDialog } from "./EditProfileDialog";
 import { User } from "@/types/User";
 import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import ActionsDropDown from "./ActionsDropDown";
 
 interface MyProfileProps {
   profile: User
@@ -41,8 +46,7 @@ export default function MyProfile({ profile } : MyProfileProps) {
             )}
           </div>
         </div>
-        <EditProfileDialog profile={profile} />
-        <CreateInventoryItemDialog profile={profile}/>
+        <ActionsDropDown userId={profile.id}/>
       </div>
 
       <Tabs defaultValue="posts">

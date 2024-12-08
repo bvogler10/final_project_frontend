@@ -73,9 +73,8 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
         onClick={(e) => {
           setIsEditProfileOpen(true);
         }}
-        className="text-left hover:bg-secondary"
+        className="text-left hover w-full"
       >
-        <Edit className="w-4 h-4 mr-2" />
         Edit Profile
       </Button>
       <Dialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen}>
