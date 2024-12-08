@@ -133,7 +133,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
                 <FormItem>
                   <FormLabel>Pattern Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter pattern name" {...field} />
+                    <Input placeholder="Enter pattern name..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,10 +144,10 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Instructions</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Describe your pattern..."
+                      placeholder="Provide instructions for this pattern..."
                       className="min-h-[100px]"
                       {...field}
                     />

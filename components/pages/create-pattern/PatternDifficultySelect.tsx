@@ -27,7 +27,7 @@ export function PatternDifficultySelect({
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select an item type" />
+        <SelectValue placeholder="Select a difficulty" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
