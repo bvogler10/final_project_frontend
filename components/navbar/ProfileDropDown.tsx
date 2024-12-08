@@ -29,7 +29,6 @@ export default function ProfileDropDown({ userId }: ProfileDropDownProps) {
       try {
         const userInfo = await apiService.get(`/api/user/${userId}`);
         setUser(userInfo.data);
-        console.log(userInfo)
       } catch (error) {
         console.error("Error:", error);
       }
@@ -37,6 +36,8 @@ export default function ProfileDropDown({ userId }: ProfileDropDownProps) {
 
     if (userId) {
       void fetchUser();
+    } else {
+      setUser(null);
     }
   }, [userId]);
 
@@ -67,7 +68,7 @@ export default function ProfileDropDown({ userId }: ProfileDropDownProps) {
               <DropdownMenuSeparator />
             </>
           )}
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-2">
             {userId ? (
               <LogoutButton />
             ) : (

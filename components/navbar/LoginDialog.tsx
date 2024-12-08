@@ -88,7 +88,6 @@ export default function LoginDialog() {
   return (
     <>
       <Button
-        variant="ghost"
         onClick={(e) => {
           setIsLoginOpen(true);
         }}

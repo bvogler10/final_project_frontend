@@ -90,7 +90,6 @@ export default function SignUpDialog() {
   return (
     <>
       <Button
-        variant="ghost"
         onClick={(e) => {
           setIsSignupOpen(true);
         }}
