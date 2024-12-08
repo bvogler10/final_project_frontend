@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Home, LinkIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PostList } from "../home/PostList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/types/User";
+import { Follow } from "@/types/Follow";
+import apiService from "@/app/services/apiService";
+import { FollowDialog } from "./FollowDialog";
+import ActionsDropDown from "./ActionsDropDown";
+import { PatternList } from "../home/PatternList";
 
 interface OtherProfileProps {
     profile: User
@@ -13,6 +18,29 @@ interface OtherProfileProps {
 
 export default function OtherProfile({ profile } : OtherProfileProps ) {
   const [activeTab, setActiveTab] = useState("posts");
+  const [followers, setFollowers] = useState<Follow[]>([]);
+  const [following, setFollowing] = useState<Follow[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState("");
+  const [dialogList, setDialogList] = useState<Follow[]>([]);
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const followers = await apiService.get(`/api/user/${profile.id}/followers`);
+      const following = await apiService.get(`/api/user/${profile.id}/following`);
+
+      setFollowers(followers.data);
+      setFollowing(following.data);
+    };
+
+    void getInfo();
+  }, []);
+
+  const openDialog = (title: string, list: Follow[]) => {
+    setDialogTitle(title);
+    setDialogList(list);
+    setIsDialogOpen(true);
+  };
   
   return (
     <div className="container w-full mx-auto py-8">
@@ -33,6 +61,31 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
           )}
         </div>
       </div>
+       {/* Following/Follower count section */}
+       <div className="mb-6">
+          <div className="flex space-x-8">
+            <div
+              className="text-center"
+              onClick={() => openDialog("Followers", followers)}
+            >
+              <p className="text-foreground">Followers</p>
+              <p className="text-xl font-semibold">{followers.length}</p>{" "}
+            </div>
+            <div
+              className="text-center"
+              onClick={() => openDialog("Following", following)}
+            >
+              <p className="text-foreground">Following</p>
+              <p className="text-xl font-semibold">{following.length}</p>{" "}
+            </div>
+          </div>
+        </div>
+        <FollowDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          title={dialogTitle}
+          list={dialogList}
+        />
     </div>
       <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2">
@@ -50,11 +103,15 @@ export default function OtherProfile({ profile } : OtherProfileProps ) {
         </TabsList>
         <TabsContent value="posts" className="mt-6">
           <div className="h-[calc(100vh-12rem)] overflow-y-auto">
-            <PostList endpoint="/api/posts" isFollowing={false}/>
+            <PostList endpoint={`/api/user_posts/${profile.id}`} isFollowing={true}/>
           </div>
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
           {/* Patterns */}
+          <PatternList
+              endpoint={`/api/user_patterns/${profile.id}`}
+              isFollowing={true}
+            />
         </TabsContent>
       </Tabs>
       </div>

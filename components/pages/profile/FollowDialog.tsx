@@ -29,7 +29,7 @@ export const FollowDialog: FC<FollowDialogProps> = ({
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>Your {title} </DialogDescription>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
         <FollowList follows={list} />
       </DialogContent>
