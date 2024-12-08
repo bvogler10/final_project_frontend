@@ -21,6 +21,7 @@ import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import { useEffect, useState } from "react";
 import { PatternListItem } from "../home/PatternListItem";
+import { PatternList } from "../home/PatternList";
 
 
 interface MyProfileProps {
@@ -82,9 +83,7 @@ export default function MyProfile({ profile } : MyProfileProps) {
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
           <div className="grid gap-4">
-            {pattern && (
-              <PatternListItem pattern={pattern}/>
-            )}
+            <PatternList endpoint="/api/patterns"/>
           </div>
         </TabsContent>
         <TabsContent value="inventory" className="mt-6">
