@@ -70,6 +70,7 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
     }
     
   };
+  
   return (
     <>
       <Card
