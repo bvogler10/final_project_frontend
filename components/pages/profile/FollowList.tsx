@@ -8,14 +8,16 @@ interface FollowListProps {
 }
 
 export const FollowList: React.FC<FollowListProps> = ({ follows }) => {
-    
-    
-    
-    return (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {follows.map((follow) => (
-            <FollowListItem key={follow.id} follow={follow} />
-          ))}
+  return (
+    <div className="flex flex-col">
+      {follows.map((follow, index) => (
+        <div key={follow.id}>
+          <FollowListItem follow={follow} />
+          {index < follows.length - 1 && (
+            <div className="border-b border-gray-200" />
+          )}
         </div>
-      );
+      ))}
+    </div>
+  );
 };

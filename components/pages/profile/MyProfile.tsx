@@ -18,6 +18,7 @@ import apiService from "@/app/services/apiService";
 import { useEffect, useState } from "react";
 import { PatternListItem } from "../home/PatternListItem";
 import { PatternList } from "../home/PatternList";
+import { FollowDialog } from "./FollowDialog";
 
 interface MyProfileProps {
   profile: User;
@@ -26,19 +27,28 @@ interface MyProfileProps {
 export default function MyProfile({ profile }: MyProfileProps) {
   const [followers, setFollowers] = useState<Follow[]>([]);
   const [following, setFollowing] = useState<Follow[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState("");
+  const [dialogList, setDialogList] = useState<Follow[]>([]);
 
   useEffect(() => {
     const getInfo = async () => {
       const userId = await getUserId();
       const followers = await apiService.get(`/api/user/${userId}/followers`);
       const following = await apiService.get(`/api/user/${userId}/following`);
-  
+
       setFollowers(followers.data);
       setFollowing(following.data);
     };
 
     void getInfo();
   }, []);
+
+  const openDialog = (title: string, list: Follow[]) => {
+    setDialogTitle(title);
+    setDialogList(list);
+    setIsDialogOpen(true);
+  };
 
   return (
     <div className="container w-full mx-auto py-8">
@@ -52,8 +62,14 @@ export default function MyProfile({ profile }: MyProfileProps) {
             <AvatarFallback>{profile.username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
           <div>
-            <div className="flex"> <h1 className="text-2xl font-bold pr-5">{profile.username}</h1> <ActionsDropDown userId={profile.id} /></div>
-            
+            <div className="flex">
+              {" "}
+              <h1 className="text-2xl font-bold pr-5">
+                {profile.username}
+              </h1>{" "}
+              <ActionsDropDown userId={profile.id} />
+            </div>
+
             <p className="text-muted-foreground">{profile.bio}</p>
             {profile.link && (
               <a
@@ -71,17 +87,28 @@ export default function MyProfile({ profile }: MyProfileProps) {
         {/* Following/Follower count section */}
         <div className="mb-6">
           <div className="flex space-x-8">
-            <div className="text-center">
+            <div
+              className="text-center"
+              onClick={() => openDialog("Followers", followers)}
+            >
               <p className="text-foreground">Followers</p>
               <p className="text-xl font-semibold">{followers.length}</p>{" "}
             </div>
-            <div className="text-center">
+            <div
+              className="text-center"
+              onClick={() => openDialog("Following", following)}
+            >
               <p className="text-foreground">Following</p>
               <p className="text-xl font-semibold">{following.length}</p>{" "}
             </div>
           </div>
         </div>
-        
+        <FollowDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          title={dialogTitle}
+          list={dialogList}
+        />
       </div>
 
       <Tabs defaultValue="posts">
