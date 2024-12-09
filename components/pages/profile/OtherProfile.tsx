@@ -51,7 +51,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
     };
 
     void getInfo();
-  }, [profile.id, followers]);
+  }, []);
 
   const openDialog = (title: string, list: Follow[]) => {
     setDialogTitle(title);
