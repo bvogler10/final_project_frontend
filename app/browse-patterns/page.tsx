@@ -66,7 +66,7 @@ export default function BrowsePatterns() {
             <PatternListItem
               key={pattern.id}
               pattern={pattern}
-              isFollowing={false}
+              isFollowing={true}
             />
           ))}
         </div>
