@@ -52,7 +52,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
     };
 
     void getInfo();
-  }, []);
+  });
 
   useEffect(() => {
     const checkIfFollowing = async () => {

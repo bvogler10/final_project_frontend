@@ -1,4 +1,3 @@
-import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";

@@ -1,12 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import { PostList } from "./PostList";
 import { PlusSquare } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { PatternList } from "./PatternList";
 
 interface ExploreComponentProps {
   userId: string | null;

@@ -22,7 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 
@@ -37,7 +36,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginDialog() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  const router = useRouter();
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
