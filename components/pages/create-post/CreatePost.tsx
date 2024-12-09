@@ -18,46 +18,84 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Upload, X, Heart, MessageCircle, Bookmark } from "lucide-react";
 import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
+
+const postSchema = z.object({
+  caption: z.string().optional(),
+  image: z
+    .any()
+    .refine((file) => file instanceof File || file === undefined, {
+      message: "Please upload a valid file.",
+    })
+    .refine((file) => (file ? file.size <= MAX_FILE_SIZE : true), {
+      message: `File size must be less than ${
+        MAX_FILE_SIZE / (1024 * 1024)
+      } MB`,
+    })
+    .refine((file) => (file ? ACCEPTED_FILE_TYPES.includes(file.type) : true), {
+      message: `Invalid file type. Accepted types are: ${ACCEPTED_FILE_TYPES.join(
+        ", "
+      )}`,
+    }),
+});
+
+// Type for the experience form values
+type PostFormValues = z.infer<typeof postSchema>;
 
 export default function CreatePost() {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [image, setImage] = useState<File | null>(null);
-  const [caption, setCaption] = useState("");
-  const [pattern, setPattern] = useState("");
+  const [caption, setCaption] = useState<string | null>(null);
   const router = useRouter();
+
+  const postForm = useForm<PostFormValues>({
+    resolver: zodResolver(postSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      caption: "",
+      image: undefined,
+    },
+  });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(file);
       const previewUrl = URL.createObjectURL(file); // Generate a preview URL
       setPreviewImage(previewUrl); // Generate a preview URL
     }
   };
 
-  const handleSubmit = async () => {
-    
-      const formData = new FormData();
-      const user = await getUserId();
-      if (caption) {
-        formData.append("caption", caption);
-      }
-      if (user) {
-        formData.append("user", user);
-      }
-      
-      if (image) {
-        formData.append("image", image);
-      }
+  const handleSubmit = async (data: PostFormValues) => {
+    const formData = new FormData();
+    const user = await getUserId();
+    if (data.caption) {
+      formData.append("caption", data.caption);
+    }
+    if (user) {
+      formData.append("user", user);
+    }
 
-      const response = await apiService.createPost(
-        "/api/posts/create_post",
-        formData
-      );
-      console.log("Response", response);
-    // Here you would typically send the data to your backend
-    console.log({ image, caption });
-    // For now, we'll just simulate a post creation and redirect
+    if (data.image) {
+      formData.append("image", data.image);
+    }
+
+    const response = await apiService.createPost(
+      "/api/posts/create_post",
+      formData
+    );
+    console.log("Response", response);
 
     setTimeout(() => {
       router.push("/");
@@ -65,8 +103,8 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="container w-[700px] mx-auto py-8 justify-center items-center">
-      <Card>
+    <div className="container w-full max-w-[700px] mx-auto py-8 justify-center items-center">
+      <Card className="w-full border-none">
         <CardHeader>
           <CardTitle>Create a New Post</CardTitle>
         </CardHeader>
@@ -77,79 +115,69 @@ export default function CreatePost() {
               <TabsTrigger value="preview">Preview</TabsTrigger>
             </TabsList>
             <TabsContent value="create">
-              <form encType="multipart/form-data" onSubmit={handleSubmit}>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="image">Upload Photo</Label>
-                    <div className="mt-1 flex items-center justify-center w-full">
-                      {previewImage ? (
-                        <div className="relative w-full h-[600px] aspect-square">
-                          <Image
-                            src={previewImage}
-                            alt="Uploaded image"
-                            layout="fill"
-                            objectFit="cover"
-                            className="rounded-md"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="icon"
-                            className="absolute top-2 right-2"
-                            onClick={() => {
-                              setImage(null);
-                              setPreviewImage("");
-                            }}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <label
-                          htmlFor="image-upload"
-                          className="w-full cursor-pointer"
-                        >
-                          <div className="border-2 border-dashed border-gray-300 rounded-md p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                            <span className="mt-2 block text-sm font-medium text-gray-900">
-                              Upload a photo
-                            </span>
-                          </div>
+              <Form {...postForm}>
+                <form
+                  onSubmit={postForm.handleSubmit(handleSubmit)}
+                  className="space-y-4"
+                >
+                  <FormField
+                    control={postForm.control}
+                    name="image"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Image</FormLabel>
+                        <FormControl>
                           <Input
-                            id="image-upload"
                             type="file"
-                            accept="image/*"
-                            className="sr-only"
-                            onChange={handleImageUpload}
+                            accept={ACCEPTED_FILE_TYPES.join(",")}
+                            onChange={(e) => {
+                              postForm.setValue(
+                                "image",
+                                e.target.files?.[0] || undefined
+                              );
+                              handleImageUpload(e);
+                            }}
                           />
-                        </label>
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="caption">Caption</Label>
-                    <Input
-                      id="caption"
-                      placeholder="Write a caption for your post..."
-                      value={caption}
-                      onChange={(e) => setCaption(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="pattern">Pattern Link (Optional)</Label>
-                    <Input
-                      id="pattern"
-                      type="url"
-                      placeholder="https://example.com/pattern"
-                      value={pattern}
-                      onChange={(e) => setPattern(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </form>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={postForm.control}
+                    name="caption"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Caption</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter caption"
+                            {...field} // Spread the necessary props from the form control
+                            onChange={(e) => {
+                              // Update the form value using field.onChange
+                              field.onChange(e);
+
+                              // Update the local state for preview
+                              setCaption(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button type="submit" className="w-full">
+                    Create Post
+                  </Button>
+                </form>
+              </Form>
             </TabsContent>
-            <TabsContent value="preview" className="flex items-center justify-center">
-              <Card className="w-[550px]">
+            <TabsContent
+              value="preview"
+              className="flex items-center justify-center"
+            >
+              <Card className="w-full max-w-[550px] border-none bg-background">
                 <CardHeader className="flex flex-row items-center gap-4">
                   <Avatar>
                     <AvatarImage src="/placeholder.svg" alt="@username" />
@@ -161,6 +189,9 @@ export default function CreatePost() {
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow">
+                  <p className="mb-2 text-sm">
+                    {caption || "Your caption will appear here"}
+                  </p>
                   {previewImage && (
                     <div className="relative w-[500px] h-[500px] aspect-square mb-4">
                       <Image
@@ -172,46 +203,12 @@ export default function CreatePost() {
                       />
                     </div>
                   )}
-                  <p className="mb-2 text-sm">
-                    {caption || "Your caption will appear here"}
-                  </p>
-                  {pattern && (
-                    <p className="text-sm text-blue-500 hover:underline">
-                      <a
-                        href={pattern}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View Pattern
-                      </a>
-                    </p>
-                  )}
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm">
-                      <Heart className="h-4 w-4 mr-1" />
-                      <span className="text-xs">0 Likes</span>
-                    </Button>
-                    <Button variant="ghost" size="sm">
-                      <MessageCircle className="h-4 w-4 mr-1" />
-                      <span className="text-xs">Comment</span>
-                    </Button>
-                  </div>
-                  <Button variant="ghost" size="sm">
-                    <Bookmark className="h-4 w-4 mr-1" />
-                    <span className="text-xs">Save</span>
-                  </Button>
-                </CardFooter>
               </Card>
             </TabsContent>
           </Tabs>
         </CardContent>
-        <CardFooter>
-          <Button onClick={handleSubmit} className="w-full">
-            Post
-          </Button>
-        </CardFooter>
+        <CardFooter></CardFooter>
       </Card>
     </div>
   );

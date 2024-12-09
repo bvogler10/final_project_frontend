@@ -142,7 +142,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
             </div>
 
             <div className="mt-4">
-              <Link href={`patterns/${pattern.id}`}>
+              <Link href={`${window.location.origin}/patterns/${pattern.id}`}>
                 <Button>Go to Pattern Details</Button>
               </Link>
             </div>

@@ -7,13 +7,14 @@ import { Home, SearchIcon } from "lucide-react";
 import { getUserId } from "@/app/lib/actions";
 import ProfileDropDown from "./ProfileDropDown";
 import UsernameSearch from "./UserSearch";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { User } from "@/types/User";
 import { useEffect, useState } from "react";
 
 export const NavBar = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -29,6 +30,8 @@ export const NavBar = () => {
     }
   };
 
+  const isActive = (path: string) => pathname === path;
+
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center w-full px-4 bg-popover">
@@ -43,22 +46,39 @@ export const NavBar = () => {
               CloseKnit
             </Link>
             <Link
+              href="/"
+              className={`transition-colors ${
+                isActive("/") ? "text-foreground" : "text-muted-foreground"
+              } hover:text-foreground/80 active:text-foreground/80`}
+            >
+              Home
+            </Link>
+            <Link
               href="/explore"
-              className="transition-colors hover:text-foreground/80 text-foreground active:text-foreground/80"
+              className={`transition-colors ${
+                isActive("/explore")
+                  ? "text-foreground"
+                  : "text-muted-foreground"
+              } hover:text-foreground/80 active:text-foreground/80`}
             >
               Explore
             </Link>
+
             <Link
-              href="/"
-              className="transition-colors hover:text-foreground/80 text-muted-foreground active:text-foreground/80"
+              href="/browse-patterns"
+              className={`transition-colors ${
+                isActive("/browse-patterns")
+                  ? "text-foreground"
+                  : "text-muted-foreground"
+              } hover:text-foreground/80 active:text-foreground/80`}
             >
-              Home
+              Browse Patterns
             </Link>
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-          <UsernameSearch onSelect={handleUserSelect}/>
+            <UsernameSearch onSelect={handleUserSelect} />
           </div>
           <nav className="flex items-center">
             <Button variant="ghost" size="icon" className="md:hidden">

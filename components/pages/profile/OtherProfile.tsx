@@ -13,6 +13,13 @@ import ActionsDropDown from "./ActionsDropDown";
 import { PatternList } from "../home/PatternList";
 import { getUserId } from "@/app/lib/actions";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface OtherProfileProps {
   profile: User;
@@ -71,69 +78,68 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
 
   return (
     <div className="container w-full mx-auto py-8">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-4">
-          <Avatar className="w-24 h-24">
-            <AvatarImage
-              src={profile.avatar ? profile.avatar : ""}
-              alt={profile.username}
-            />
-            <AvatarFallback>{profile.username[0].toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <div>
-            <div className="flex">
-              {" "}
-              <h1 className="text-2xl font-bold">{profile.username}</h1>{" "}
-              {!isFollowing && (
-                <Button
-                  onClick={() => handleFollow()}
-                  size="sm"
-                  className="ml-auto bg-secondary"
+      <div className="container w-full mx-auto py-8 px-4">
+      <Card className="overflow-hidden border-none">
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+            <Avatar className="w-32 h-32 border-4 border-background">
+              <AvatarImage src={profile.avatar || ""} alt={profile.username} />
+              <AvatarFallback>{profile.username[0].toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex flex-col md:flex-row items-center justify-between mb-4">
+                <h1 className="text-3xl font-bold mb-2 md:mb-0">{profile.username}</h1>
+                  {!isFollowing ? (<Button
+                    onClick={handleFollow}
+                    variant="secondary"
+                    className="w-full md:w-auto"
+                  >
+                    Follow
+                  </Button>) : (
+                    <Button
+                    variant="secondary"
+                    className="w-full md:w-auto"
+                  >
+                    Following
+                  </Button>
+                  )}
+                  
+                  
+              </div>
+              <p className="text-muted-foreground mb-4">{profile.bio}</p>
+              {profile.link && (
+                <a
+                  href={profile.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center md:justify-start text-primary hover:underline mb-4"
                 >
-                  Follow
-                </Button>
+                  <LinkIcon className="w-4 h-4 mr-1" />
+                  {profile.link}
+                </a>
               )}
-            </div>
-            <p className="text-muted-foreground">{profile.bio}</p>
-            {profile.link && (
-              <a
-                href={profile.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-blue-500 hover:underline"
-              >
-                <LinkIcon className="w-4 h-4 mr-1" />
-                {profile.link}
-              </a>
-            )}
-          </div>
-        </div>
-        {/* Following/Follower count section */}
-        <div className="mb-6">
-          <div className="flex space-x-8">
-            <div
-              className="text-center"
-              onClick={() => openDialog("Followers", followers)}
-            >
-              <p className="text-foreground">Followers</p>
-              <p className="text-xl font-semibold">{followers.length}</p>{" "}
-            </div>
-            <div
-              className="text-center"
-              onClick={() => openDialog("Following", following)}
-            >
-              <p className="text-foreground">Following</p>
-              <p className="text-xl font-semibold">{following.length}</p>{" "}
+              <div className="flex justify-center md:justify-start space-x-8">
+                <Button variant="ghost" onClick={() => openDialog("Followers", followers)}>
+                  <span className="font-semibold">{followers.length}</span>
+                  <span className="ml-1">Followers</span>
+                </Button>
+                <Button variant="ghost" onClick={() => openDialog("Following", following)}>
+                  <span className="font-semibold">{following.length}</span>
+                  <span className="ml-1">Following</span>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-        <FollowDialog
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
-          title={dialogTitle}
-          list={dialogList}
-        />
-      </div>
+        </CardContent>
+      </Card>
+
+      <FollowDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        title={dialogTitle}
+        list={dialogList}
+      />
+    </div>
       <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="posts">
@@ -146,7 +152,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
           <div className="h-[calc(100vh-12rem)] overflow-y-auto">
             <PostList
               endpoint={`/api/user_posts/${profile.id}`}
-              isFollowing={isFollowing}
+              isFollowing={true}
             />
           </div>
         </TabsContent>
@@ -154,7 +160,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
           {/* Patterns */}
           <PatternList
             endpoint={`/api/user_patterns/${profile.id}`}
-            isFollowing={isFollowing}
+            isFollowing={true}
           />
         </TabsContent>
       </Tabs>

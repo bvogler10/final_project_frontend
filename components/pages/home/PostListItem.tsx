@@ -20,6 +20,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import apiService from "@/app/services/apiService";
+import Link from "next/link";
 
 interface PostProps {
   post: Post;
@@ -59,25 +60,21 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
   const closeDialog = () => setIsDialogOpen(false);
 
   const handleFollow = async () => {
-    const otherUser = post.user_info.id
+    const otherUser = post.user_info.id;
     try {
-      console.log('following', otherUser)
-      const response = await apiService.follow(`/api/user/follow/${otherUser}`)
+      console.log("following", otherUser);
+      const response = await apiService.follow(`/api/user/follow/${otherUser}`);
       if (response) {
-        console.log("Follow Response:", response)
+        console.log("Follow Response:", response);
       }
     } catch (e) {
-      console.error('Error:', e)
+      console.error("Error:", e);
     }
-    
   };
 
   return (
     <>
-      <Card
-        className="flex flex-col bg-card text-card-foreground border-none"
-        onClick={openDialog}
-      >
+      <Card className="flex flex-col bg-card text-card-foreground border-none">
         <CardHeader className="flex flex-row items-center gap-4">
           <Avatar>
             <AvatarImage
@@ -89,28 +86,38 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <CardTitle>@{post.user_info.username}</CardTitle>
+            <CardTitle>
+              <Link
+                href={`${window.location.origin}/profiles/${post.user_info.id}`}
+              >
+                @{post.user_info.username}
+              </Link>
+            </CardTitle>
             <p className="text-sm text-muted-foreground">
               {getTimeAgo(new Date(post.created_at))}
             </p>
           </div>
           {!isFollowing && (
-            <Button onClick={() => handleFollow()} size="sm" className="ml-auto bg-secondary">
+            <Button
+              onClick={() => handleFollow()}
+              size="sm"
+              className="ml-auto bg-secondary"
+            >
               Follow
             </Button>
           )}
         </CardHeader>
-        <CardContent>
+        <CardContent onClick={openDialog}>
           <p className="mb-2 text-sm">{post.caption}</p>
           <div className="flex-grow">
             {post.image_url !== "" && (
               <div className="relative w-full aspect-square">
-              <img
-                src={post.image_url}
-                alt={`Post by ${post.user_info.username}`}
-                className="rounded-lg object-cover w-full h-full"
-              />
-            </div>
+                <img
+                  src={post.image_url}
+                  alt={`Post by ${post.user_info.username}`}
+                  className="rounded-lg object-cover w-full h-full"
+                />
+              </div>
             )}
           </div>
         </CardContent>
@@ -118,9 +125,9 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
       {isDialogOpen && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogHeader>
-            <DialogTitle>Sign Up</DialogTitle>
+            <DialogTitle>@{post.user_info.username}</DialogTitle>
             <DialogDescription>
-              Create a new account by filling out the form below.
+              {post.caption || "No caption provided"}
             </DialogDescription>
             <Button
               onClick={closeDialog}
@@ -129,26 +136,32 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
               <X className="h-5 w-5" />
             </Button>
           </DialogHeader>
-          <DialogContent className="w-[80vw] max-w-[1000px] h-[80vh] overflow-hidden">
-            <div className="relative flex flex-col md:flex-row gap-4 h-full">
-              <div className="flex-shrink-0 w-full md:w-1/2 h-full">
-                {post.image_url !== "" && (
+          <DialogContent className="w-auto max-w-[90vw] h-auto max-h-[90vh] overflow-hidden">
+            <div className="flex flex-col h-full">
+              {/* User Info and Caption at the Top */}
+              <div className="flex flex-col p-4 mb-2">
+                <Link
+                  href={`${window.location.origin}/profiles/${post.user_info.id}`}
+                >
+                  <p className="text-lg font-semibold">
+                    @{post.user_info.username}
+                  </p>
+                </Link>
+                <p className="text-sm text-muted-foreground">
+                  {post.caption || "No caption provided"}
+                </p>
+              </div>
+
+              {/* Image below */}
+              {post.image_url !== "" && (
+                <div className="relative w-full max-w-[90vw] h-auto">
                   <img
                     src={post.image_url}
                     alt={`Post by ${post.user_info.username}`}
-                    className="rounded-lg object-cover w-full h-full"
+                    className="rounded-lg object-contain w-full max-h-[70vh] mx-auto"
                   />
-                )}
-              </div>
-
-              <div className="flex flex-col justify-start md:w-1/2 h-full p-4">
-                <p className="text-lg font-semibold">
-                  @{post.user_info.username}
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  {post.caption}
-                </p>
-              </div>
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>

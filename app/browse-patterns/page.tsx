@@ -5,11 +5,30 @@ import { PatternListItem } from "@/components/pages/home/PatternListItem";
 import { Pattern } from "@/types/Pattern";
 import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
+import { getUserId } from "../lib/actions";
+import { useRouter } from "next/navigation";
 
 export default function BrowsePatterns() {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [patterns, setPatterns] = useState<Pattern[]>([]);
+  const [user, setUser] = useState<string | null>();
+  const router = useRouter(); // Initialize the router
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const userId = await getUserId();
+      setUser(userId);
+    };
+    getInfo();
+  }, []);
+
+  useEffect(() => {
+    // Redirect to home page if user is not valid
+    if (user === null) {
+      router.push("/"); // Redirect to home
+    }
+  }, [user, router]);
 
   // Debounce search query
   useEffect(() => {
@@ -32,7 +51,7 @@ export default function BrowsePatterns() {
         const fetchedPatterns = await apiService.get(
           `/api/patterns/search_patterns/?${searchParams}`
         );
-        console.log('setting patterns as:', fetchedPatterns)
+        console.log("setting patterns as:", fetchedPatterns);
 
         setPatterns(fetchedPatterns.data);
       } catch (error) {
@@ -55,10 +74,12 @@ export default function BrowsePatterns() {
           </p>
         </div>
       </div>
-      <PatternSearch
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
-      />
+      <div className="w-full max-w-xl mx-auto">
+        <PatternSearch
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+        />
+      </div>
 
       {patterns && patterns.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
