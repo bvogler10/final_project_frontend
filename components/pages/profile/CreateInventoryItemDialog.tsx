@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { User } from "@/types/User";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,9 +61,6 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
   profile,
 }) => {
   const [isCreateInventoryOpen, setIsCreateInventoryOpen] = useState(false);
-  const [image, setImage] = useState<File | null>(null);
-  const [description, setDescription] = useState("");
-  const [name, setName] = useState("");
   const router = useRouter();
 
   const inventoryForm = useForm<InventoryFormValues>({
@@ -111,7 +107,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
     <>
       <Button
         variant="ghost"
-        onClick={(e) => {
+        onClick={() => {
           setIsCreateInventoryOpen(true);
         }}
         className="text-left"
@@ -179,7 +175,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
               <FormField
                 control={inventoryForm.control}
                 name="image"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormLabel>Image</FormLabel>
                     <FormControl>

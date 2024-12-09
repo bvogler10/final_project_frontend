@@ -1,7 +1,6 @@
 "use client";
 import { ExploreComponent } from "@/components/pages/home/ExplorePage";
 import { useEffect, useState } from "react";
-import WelcomePage from "@/components/WelcomePage";
 import { getUserId } from "../lib/actions";
 
 export default function Explore() {
@@ -20,5 +19,14 @@ export default function Explore() {
   if (loading) {
     return <div>Loading...</div>; // Show loading indicator while waiting for user data
   }
-  return <>{user ? <ExploreComponent userId={user}/> : <ExploreComponent userId={null}/>}</>;
+  return (
+    <>
+    {/* Show explore tailored to user OR logged out explore view (all except user or all users) */}
+      {user ? (
+        <ExploreComponent userId={user} />
+      ) : (
+        <ExploreComponent userId={null} />
+      )}
+    </>
+  );
 }

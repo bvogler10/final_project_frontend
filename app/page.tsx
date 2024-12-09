@@ -1,12 +1,11 @@
 "use client";
-import { ExploreComponent } from "@/components/pages/home/ExplorePage";
 import { useEffect, useState } from "react";
 import { getUserId } from "./lib/actions";
 import WelcomePage from "@/components/WelcomePage";
 import { HomeComponent } from "@/components/pages/home/HomePage";
 
 export default function Home() {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(null); //to store user
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
 
   useEffect(() => {
@@ -22,5 +21,10 @@ export default function Home() {
     return <div>Loading...</div>; // Show loading indicator while waiting for user data
   }
 
-  return <>{user ? <HomeComponent userId={user}/> : <WelcomePage />}</>;
+  return (
+    <>
+      {/* If the user is logged in, show Home page, otherwise show welcome page */}
+      {user ? <HomeComponent userId={user} /> : <WelcomePage />}
+    </>
+  );
 }

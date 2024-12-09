@@ -1,21 +1,20 @@
 "use client";
 
-import {CreatePattern} from "@/components/pages/create-pattern/CreatePattern";
-import WelcomePage from "@/components/WelcomePage";
+import { CreatePattern } from "@/components/pages/create-pattern/CreatePattern";
 import { useEffect, useState } from "react";
 import { getUserId } from "../lib/actions";
 import { useRouter } from "next/navigation";
 
 export default function CreatePostPage() {
-  const [user,setUser] = useState<string | null>()
+  const [user, setUser] = useState<string | null>(); // to store the userId
   const router = useRouter(); // Initialize the router
 
   useEffect(() => {
     const getInfo = async () => {
       const userId = await getUserId();
-      setUser(userId)
+      setUser(userId);
     };
-    getInfo()
+    getInfo();
   }, []);
 
   useEffect(() => {
@@ -27,9 +26,8 @@ export default function CreatePostPage() {
 
   return (
     <>
-    {user && (
-      <CreatePattern profile={user}/>
-    )}
-  </>
-  )
+      {/* If the user is not null, we can display the Create Pattern page */}
+      {user && <CreatePattern profile={user} />}
+    </>
+  );
 }

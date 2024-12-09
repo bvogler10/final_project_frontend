@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { getAccessToken } from "../lib/actions";
 
 const apiService = {

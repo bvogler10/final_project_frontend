@@ -60,7 +60,6 @@ type PatternFormValues = z.infer<typeof patternSchema>;
 
 export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
   const router = useRouter();
 
   const form = useForm<PatternFormValues>({
@@ -173,7 +172,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
             <FormField
               control={form.control}
               name="image"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel>Pattern Image</FormLabel>
                   <FormControl>

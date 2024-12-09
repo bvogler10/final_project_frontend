@@ -1,15 +1,8 @@
 import { useState } from "react";
-import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -81,7 +74,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
           </CardHeader>
           <CardContent>
             <div className="relative w-full aspect-video mb-4">
-            <img
+              <img
                 src={pattern.image_url}
                 alt={pattern.name}
                 width="300"

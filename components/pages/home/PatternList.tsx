@@ -2,8 +2,6 @@
 
 import { FC, useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";
-import { PostListItem } from "./PostListItem";
-import { Post } from "@/types/Post";
 import { PatternListItem } from "./PatternListItem";
 import { Pattern } from "@/types/Pattern";
 
@@ -14,14 +12,15 @@ interface PatternListProps {
 
 export const PatternList: FC<PatternListProps> = ({ endpoint, isFollowing }) => {
   const [patterns, setPatterns] = useState<Pattern[]>([]);
-  const getPosts = async () => {
-    const tmpPatterns = await apiService.get(endpoint);
-
-    setPatterns(tmpPatterns.data);
-  };
+  
 
   useEffect(() => {
-    getPosts();
+    const getPosts = async () => {
+      const tmpPatterns = await apiService.get(endpoint);
+  
+      setPatterns(tmpPatterns.data);
+    };
+    void getPosts()
   }, [endpoint]);
 
   return (

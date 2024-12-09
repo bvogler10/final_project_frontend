@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -15,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Upload, X, Heart, MessageCircle, Bookmark } from "lucide-react";
 import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import * as z from "zod";
@@ -33,6 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
 
+// Set up the schema for the form
 const postSchema = z.object({
   caption: z.string().optional(),
   image: z
@@ -52,11 +51,11 @@ const postSchema = z.object({
     }),
 });
 
-// Type for the experience form values
+// Type for the post form values
 type PostFormValues = z.infer<typeof postSchema>;
 
 export default function CreatePost() {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null); //store preview URL
   const [caption, setCaption] = useState<string | null>(null);
   const router = useRouter();
 
@@ -123,7 +122,7 @@ export default function CreatePost() {
                   <FormField
                     control={postForm.control}
                     name="image"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <FormLabel>Image</FormLabel>
                         <FormControl>

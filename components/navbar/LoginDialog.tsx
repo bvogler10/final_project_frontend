@@ -38,10 +38,6 @@ export default function LoginDialog() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState<string[]>([]);
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -77,18 +73,14 @@ export default function LoginDialog() {
         router.push("/");
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
+     console.error(error)
     }
   };
 
   return (
     <>
       <Button
-        onClick={(e) => {
+        onClick={() => {
           setIsLoginOpen(true);
         }}
         className="w-full text-left hover:bg-secondary"

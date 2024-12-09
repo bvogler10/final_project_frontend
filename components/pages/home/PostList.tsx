@@ -12,14 +12,14 @@ interface PostListProps {
 
 export const PostList: FC<PostListProps> = ({ endpoint, isFollowing }) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const getPosts = async () => {
-    const tmpPosts = await apiService.get(endpoint);
-
-    setPosts(tmpPosts.data);
-  };
 
   useEffect(() => {
-    getPosts();
+    const getPosts = async () => {
+      const tmpPosts = await apiService.get(endpoint);
+
+      setPosts(tmpPosts.data);
+    };
+    void getPosts();
   }, [endpoint]);
 
   return (

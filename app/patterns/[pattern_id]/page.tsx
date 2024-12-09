@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useParams } from "next/navigation";
 import { Pattern } from "@/types/Pattern";
@@ -11,20 +10,21 @@ import apiService from "@/app/services/apiService";
 import Link from "next/link";
 
 export default function PatternDetailPage() {
+  // Get the pattern id from the URL
   const params = useParams();
   const pattern_id = Array.isArray(params.pattern_id)
     ? params.pattern_id[0]
     : params.pattern_id;
 
-  const [pattern, setPattern] = useState<Pattern | null>(null);
+  const [pattern, setPattern] = useState<Pattern | null>(null); // to store pattern info
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const getInfo = async () => {
       try {
         setIsLoading(true); // Start loading
-        const patternData = await apiService.get(`/api/pattern/${pattern_id}`);
-        setPattern(patternData.data);
+        const patternData = await apiService.get(`/api/pattern/${pattern_id}`); //fetch pattern data
+        setPattern(patternData.data); // save data
       } catch (error) {
         console.error("Error fetching pattern data:", error);
       } finally {
@@ -35,14 +35,14 @@ export default function PatternDetailPage() {
     if (pattern_id) {
       getInfo();
     }
-  }, [pattern_id]); // Add profile_id as a dependency
+  }, [pattern_id]); // pattern_id as a dependency
 
   if (isLoading) {
     return <div>Loading...</div>; // Render a loading indicator
   }
 
   if (!pattern) {
-    return <div>Pattern not found</div>; // Handle case where profile is not found
+    return <div>Pattern not found</div>; // Handle case where pattern is not found
   }
 
   return (
@@ -59,6 +59,7 @@ export default function PatternDetailPage() {
               <AvatarFallback>{pattern.creator_info.name[0]}</AvatarFallback>
             </Avatar>
             <div>
+              {/* link to user profile from creator name and username */}
             <Link
                 href={`${window.location.origin}/profiles/${pattern.creator_info.id}`}
               >

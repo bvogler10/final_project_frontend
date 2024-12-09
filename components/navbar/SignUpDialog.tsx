@@ -79,18 +79,14 @@ export default function SignUpDialog() {
         router.push("/");
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
+      console.error(error);
     }
   };
 
   return (
     <>
       <Button
-        onClick={(e) => {
+        onClick={() => {
           setIsSignupOpen(true);
         }}
         className="w-full text-left hover:bg-secondary"

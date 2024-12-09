@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User } from "@/types/User";
-import { Edit, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useRef, useState } from "react";
 
@@ -22,7 +22,7 @@ interface EditProfileDialogProps {
 
 export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const [editedProfile, setEditedProfile] = useState(profile);
+  const editedProfile = profile;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<File | null>(null);
   const [link, setLink] = useState(editedProfile.link ?? "");
@@ -40,11 +40,8 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
   };
 
   const handleEdit = async () => {
-    const userId = await getUserId()
-    console.log(bio, link, avatar);
-    console.log(editedProfile);
+    const userId = await getUserId();
     const formData = new FormData();
-    console.log(formData);
 
     if (avatar) {
       formData.append("avatar", avatar);
@@ -57,20 +54,18 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
     const response = await apiService.put("/api/update_user", formData);
 
     if (response.message) {
-      
       console.log("Response", response);
     }
 
     setIsEditProfileOpen(false);
     router.push(`/profiles/${userId}`);
-
   };
 
   return (
     <>
       <Button
         variant="ghost"
-        onClick={(e) => {
+        onClick={() => {
           setIsEditProfileOpen(true);
         }}
         className="text-left hover w-full"
@@ -87,9 +82,9 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
           </DialogHeader>
           <form
             onSubmit={(e) => {
-                e.preventDefault();
-                handleEdit();
-              }}
+              e.preventDefault();
+              handleEdit();
+            }}
             encType="multipart/form-data"
             className="space-y-4"
           >

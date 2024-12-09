@@ -4,20 +4,19 @@ import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import MyProfile from "@/components/pages/profile/MyProfile";
 import OtherProfile from "@/components/pages/profile/OtherProfile";
-import WelcomePage from "@/components/WelcomePage";
 import { User } from "@/types/User";
-import { getCipherInfo } from "crypto";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
+  // get profile id from URL
   const params = useParams();
-  const profile_id = Array.isArray(params.user_id)
+  const user_id = Array.isArray(params.user_id)
     ? params.user_id[0]
     : params.user_id; // Ensure profile_id is a string
 
-  const [profile, setProfile] = useState<User | null>(null);
-  const [user, setUser] = useState<string | null>("");
+  const [profile, setProfile] = useState<User | null>(null); // store profile info
+  const [user, setUser] = useState<string | null>(""); // store userId
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const router = useRouter(); // Initialize the router
 
@@ -32,8 +31,8 @@ export default function ProfilePage() {
     const getInfo = async () => {
       try {
         setIsLoading(true); // Start loading
-        const userId = await getUserId();
-        const profileInfo = await apiService.get(`/api/user/${profile_id}`);
+        const userId = await getUserId(); //fetch userId
+        const profileInfo = await apiService.get(`/api/user/${user_id}`); //fetch profile information and store in profile state
         setProfile(profileInfo.data);
         setUser(userId);
       } catch (error) {
@@ -43,10 +42,10 @@ export default function ProfilePage() {
       }
     };
 
-    if (profile_id) {
+    if (user_id) {
       getInfo();
     }
-  }, [profile_id]); // Add profile_id as a dependency
+  }, [user_id]); // Add profile_id as a dependency
 
   if (isLoading) {
     return <div>Loading...</div>; // Render a loading indicator
@@ -58,7 +57,8 @@ export default function ProfilePage() {
 
   return (
     <>
-    {profile_id === user ? (
+    {/* conditionally display authenticated user's profile or other profile */}
+    {user_id === user ? (
       <MyProfile profile={profile} />
     ) : (
       <OtherProfile profile={profile} />

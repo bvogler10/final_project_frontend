@@ -4,13 +4,12 @@ import { FC, useState } from "react";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Bookmark, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Post } from "@/types/Post";
 import {
   Dialog,

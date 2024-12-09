@@ -5,8 +5,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import { FC } from "react";
 import { FollowList } from "./FollowList";
 import { Follow } from "@/types/Follow";

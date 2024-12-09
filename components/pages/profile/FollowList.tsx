@@ -1,5 +1,3 @@
-import { FC, useEffect, useState } from "react";
-import apiService from "@/app/services/apiService";
 import { Follow } from "@/types/Follow";
 import { FollowListItem } from "./FollowListItem";
 

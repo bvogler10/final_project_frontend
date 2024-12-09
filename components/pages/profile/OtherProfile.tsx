@@ -9,16 +9,12 @@ import { User } from "@/types/User";
 import { Follow } from "@/types/Follow";
 import apiService from "@/app/services/apiService";
 import { FollowDialog } from "./FollowDialog";
-import ActionsDropDown from "./ActionsDropDown";
 import { PatternList } from "../home/PatternList";
 import { getUserId } from "@/app/lib/actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 interface OtherProfileProps {
@@ -55,7 +51,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
     };
 
     void getInfo();
-  }, []);
+  }, [profile.id, followers]);
 
   const openDialog = (title: string, list: Follow[]) => {
     setDialogTitle(title);
