@@ -6,6 +6,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -70,7 +71,7 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
     }
     
   };
-  
+
   return (
     <>
       <Card
@@ -88,8 +89,8 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <p className="text-sm font-semibold">@{post.user_info.username}</p>
-            <p className="text-xs text-muted-foreground">
+            <CardTitle>@{post.user_info.username}</CardTitle>
+            <p className="text-sm text-muted-foreground">
               {getTimeAgo(new Date(post.created_at))}
             </p>
           </div>
@@ -103,31 +104,16 @@ export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
           <p className="mb-2 text-sm">{post.caption}</p>
           <div className="flex-grow">
             {post.image_url !== "" && (
+              <div className="relative w-full aspect-square">
               <img
                 src={post.image_url}
                 alt={`Post by ${post.user_info.username}`}
-                width="300"
-                className="rounded-lg object-cover w-full h-auto"
+                className="rounded-lg object-cover w-full h-full"
               />
+            </div>
             )}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <div className="flex gap-2">
-            <Button variant="ghost" size="sm">
-              <Heart className="h-4 w-4 mr-1" />
-              <span className="text-xs">Like</span>
-            </Button>
-            <Button variant="ghost" size="sm">
-              <MessageCircle className="h-4 w-4 mr-1" />
-              <span className="text-xs">Comment</span>
-            </Button>
-          </div>
-          <Button variant="ghost" size="sm">
-            <Bookmark className="h-4 w-4 mr-1" />
-            <span className="text-xs">Save</span>
-          </Button>
-        </CardFooter>
       </Card>
       {isDialogOpen && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

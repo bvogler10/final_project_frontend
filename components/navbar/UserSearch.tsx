@@ -7,7 +7,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useEffect, useRef, useState } from "react";
-import { User } from "@/types/User"; // Assuming a User type exists
+import { User } from "@/types/User";
 import apiService from "@/app/services/apiService";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
