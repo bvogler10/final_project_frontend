@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Home, SearchIcon } from "lucide-react";
 import { getUserId } from "@/app/lib/actions";
 import ProfileDropDown from "./ProfileDropDown";
