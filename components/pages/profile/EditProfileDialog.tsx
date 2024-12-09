@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User } from "@/types/User";
 import { Upload } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { FC, useRef, useState } from "react";
 
 interface EditProfileDialogProps {
@@ -27,7 +26,6 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
   const [avatar, setAvatar] = useState<File | null>(null);
   const [link, setLink] = useState(editedProfile.link ?? "");
   const [bio, setBio] = useState(editedProfile.bio ?? "");
-  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +38,6 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
   };
 
   const handleEdit = async () => {
-    const userId = await getUserId();
     const formData = new FormData();
 
     if (avatar) {
