@@ -66,7 +66,8 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({ pattern, isFol
               <Image
                 src={pattern.image_url}
                 alt={pattern.name}
-                layout="fill"
+                width={300}
+                height={300}
                 objectFit="cover"
                 className="rounded-md"
               />
