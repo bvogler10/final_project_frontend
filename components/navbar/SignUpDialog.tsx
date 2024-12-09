@@ -21,10 +21,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
+import { toast } from "@/hooks/use-toast";
 
 const signupSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -38,8 +37,6 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function SignUpDialog() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-
-  const router = useRouter();
 
   const signupForm = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -76,10 +73,12 @@ export default function SignUpDialog() {
         });
 
         setIsSignupOpen(false);
-        router.push("/");
+        window.location.reload();
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast({
+        title: "Error"
+      });
     }
   };
 

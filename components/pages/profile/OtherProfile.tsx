@@ -16,6 +16,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface OtherProfileProps {
   profile: User;
@@ -53,6 +54,18 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
     void getInfo();
   }, []);
 
+  useEffect(() => {
+    const checkIfFollowing = async () => {
+      const userId = await getUserId();
+      const isUserFollowing = followers.some(
+        (follower) => follower.follow_info.id === userId
+      );
+      setIsFollowing(isUserFollowing);
+    };
+  
+    void checkIfFollowing();
+  }, [followers]);
+
   const openDialog = (title: string, list: Follow[]) => {
     setDialogTitle(title);
     setDialogList(list);
@@ -66,6 +79,7 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
       const response = await apiService.follow(`/api/user/follow/${otherUser}`);
       if (response) {
         console.log("Follow Response:", response);
+        window.location.reload();
       }
     } catch (e) {
       console.error("Error:", e);
@@ -92,12 +106,12 @@ export default function OtherProfile({ profile }: OtherProfileProps) {
                   >
                     Follow
                   </Button>) : (
-                    <Button
+                    <Badge
                     variant="secondary"
                     className="w-full md:w-auto"
                   >
                     Following
-                  </Button>
+                  </Badge>
                   )}
                   
                   

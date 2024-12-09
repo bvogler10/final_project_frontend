@@ -10,7 +10,10 @@ export const LogoutButton: React.FC = () => {
 
   const submitLogout = async () => {
     resetAuthCookies();
-    router.push("/");
+    
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return <Button onClick={submitLogout}>Log out</Button>;

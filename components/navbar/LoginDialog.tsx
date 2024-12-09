@@ -70,7 +70,7 @@ export default function LoginDialog() {
         });
 
         setIsLoginOpen(false);
-        router.push("/");
+        window.location.reload();
       }
     } catch (error) {
      console.error(error)

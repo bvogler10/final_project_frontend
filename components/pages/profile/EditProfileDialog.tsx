@@ -58,7 +58,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
     }
 
     setIsEditProfileOpen(false);
-    router.push(`/profiles/${userId}`);
+    window.location.reload();
   };
 
   return (
