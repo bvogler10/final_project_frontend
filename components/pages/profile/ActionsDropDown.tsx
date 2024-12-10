@@ -1,5 +1,9 @@
 "use client";
 
+// File: ActionsDropDown.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the drop down component in the user profile
+
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -1,5 +1,9 @@
 "use client";
 
+// File: create-pattern/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /create-pattern which displays a form to create a pattern object
+
 import { CreatePattern } from "@/components/pages/create-pattern/CreatePattern";
 import { useEffect, useState } from "react";
 import { getUserId } from "../lib/actions";

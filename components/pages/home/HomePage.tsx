@@ -1,5 +1,9 @@
 "use client";
 
+// File: HomePage.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the home page component to show posts/patterns
+
 import { FC, useState } from "react";
 import { PostList } from "./PostList";
 import { PlusSquare } from "lucide-react";

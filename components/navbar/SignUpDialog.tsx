@@ -1,5 +1,9 @@
 "use client";
 
+// File: SignUpDialog.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the sign up dialog component (popup for signing up)
+
 import {
   Dialog,
   DialogContent,
@@ -94,7 +98,7 @@ export default function SignUpDialog() {
       >
         Sign Up
       </Button>
-
+      {/* dialog component */}
       <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>

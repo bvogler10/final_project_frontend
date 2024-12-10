@@ -1,5 +1,9 @@
 "use client";
 
+// File: patterns/[pattern_id]/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /patterns/[pattern-id] which displays a pattern specified by pattern_id
+
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +12,7 @@ import { Pattern } from "@/types/Pattern";
 import apiService from "@/app/services/apiService";
 import Link from "next/link";
 
+//the page for pattern details
 export default function PatternDetailPage() {
   // Get the pattern id from the URL
   const params = useParams();

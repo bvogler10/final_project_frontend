@@ -1,3 +1,7 @@
+// File: InventorySelect.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to choose a type of inventory
+
 import * as React from "react";
 import {
   Select,
@@ -7,7 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 // options for type selection
+
 const TYPE_OPTIONS = [
   { value: "yarn", label: "Yarn" },
   { value: "hook_needle", label: "Hook/Needle" },

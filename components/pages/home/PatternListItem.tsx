@@ -1,3 +1,7 @@
+// File: PatternListItem.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component that makes up a single pattern object in the list
+
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -46,6 +50,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
   };
 
   return (
+    // dialog component
     <Dialog>
       <DialogTrigger asChild>
         <Card className="cursor-pointer border-none hover:shadow-md transition-shadow">

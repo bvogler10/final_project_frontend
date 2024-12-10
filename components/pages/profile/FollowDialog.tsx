@@ -1,3 +1,7 @@
+// File: FollowDialog.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the dialog showing when viewing followers
+
 import {
   Dialog,
   DialogContent,
@@ -13,7 +17,7 @@ interface FollowDialogProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  list: Follow[]; // Adjust type as needed
+  list: Follow[];
 }
 // dialog to show follows
 export const FollowDialog: FC<FollowDialogProps> = ({

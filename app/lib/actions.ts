@@ -1,6 +1,17 @@
 "use server";
+
+// File: actions.ts
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file handling cookie actions (such as logging in and saving access/refresh tokens, clearing cookies, etc)
+
 import { cookies } from "next/headers";
 
+/**
+ * handles login
+ * 
+ * takes userId, accessToken, refreshToken and saves to cookies
+ * sets timeouts
+ */
 export async function handleLogin(
   userId: string,
   accessToken: string,
@@ -28,21 +39,33 @@ export async function handleLogin(
   });
 }
 
-// logs out the user by deleeting all tokens from the cookies
+/**
+ * 
+ * logs out the user by deleeting all tokens from the cookies
+ * 
+*/
 export async function resetAuthCookies() {
   (await cookies()).set("session_userid", "");
   (await cookies()).set("session_access_token", "");
   (await cookies()).set("session_refresh_token", "");
   console.log("cookies reset!");
 }
+/**
+ * 
+ * fetches userId for currernt authenticated user using cookies
+ * 
+*/
 
-// fetches userId for currernt authenticated user using cookies
 export async function getUserId() {
   const userId = (await cookies()).get("session_userid")?.value;
   return userId ? userId : null;
 }
+/**
+ * 
+ * Function to get the access token from the session cookie
+ * 
+*/
 
-// Function to get the access token from the session cookie
 export async function getAccessToken() {
   const cookieStore = await cookies();
   let accessToken = cookieStore.get("session_access_token")?.value;
@@ -53,13 +76,22 @@ export async function getAccessToken() {
   return accessToken;
 }
 
-// retrieve refresh token from cookies
+
+/**
+ * 
+ *  retrieve refresh token from cookies
+ * 
+*/
 export async function getRefreshToken() {
   const token = (await cookies()).get("session_refresh_token")?.value;
   return token ? token : null;
 }
 
-// Function to refresh the access token when it expires
+/**
+ * 
+ * Function to refresh the access token when it expires
+ * 
+*/
 export async function handleRefresh() {
   const refreshToken = await getRefreshToken();
   const cookieStore = await cookies();

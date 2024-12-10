@@ -1,5 +1,8 @@
-import { UUID } from "crypto"
+// File: User.ts
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the User type object
 
+import { UUID } from "crypto"
 
 export interface User {
     id: UUID;

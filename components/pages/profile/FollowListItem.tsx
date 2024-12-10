@@ -1,5 +1,9 @@
 "use client";
 
+// File: FollowListItem.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component for an individual follow item (user information)
+
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { Follow } from "@/types/Follow";

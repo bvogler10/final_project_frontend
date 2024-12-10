@@ -1,3 +1,7 @@
+// File: PatternDifficultySelect.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to select a difficulty from a dropdown
+
 import * as React from "react";
 import {
   Select,
@@ -9,7 +13,6 @@ import {
 } from "@/components/ui/select";
 
 // options for the dropdown with value and label
-
 const DIFFICULTY_OPTIONS = [
   { value: "beginner", label: "Beginner" },
   { value: "advanced_beginner", label: "Advanced Beginner" },
@@ -26,6 +29,7 @@ export function PatternDifficultySelect({
   onChange: (value: string) => void;
 }) {
   return (
+    // selection compoent (dropdown)
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a difficulty" />

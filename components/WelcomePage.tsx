@@ -1,3 +1,7 @@
+// File: WelcomePage.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to show a welcome page for logged out users
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RibbonIcon as Yarn, Users, BookOpen, Heart } from "lucide-react";
 import LoginDialog from "@/components/navbar/LoginDialog";

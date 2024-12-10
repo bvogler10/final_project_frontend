@@ -1,5 +1,9 @@
 "use client";
 
+// File: ExplorePage.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component displaying explore content
+
 import { FC } from "react";
 import { PostList } from "./PostList";
 import { PlusSquare } from "lucide-react";

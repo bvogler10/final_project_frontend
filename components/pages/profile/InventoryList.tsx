@@ -1,4 +1,7 @@
-// Define the PostList component
+
+// File: InventoryList.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component showing the list of components
 
 import { FC, useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";

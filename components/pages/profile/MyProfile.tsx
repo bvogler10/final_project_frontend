@@ -1,5 +1,9 @@
 "use client";
 
+// File: MyProfile.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to show my own profile page
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LinkIcon } from "lucide-react";

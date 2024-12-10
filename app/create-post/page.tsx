@@ -1,5 +1,9 @@
 "use client";
 
+// File: create-post/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /create-post which displays a form for creating a post object
+
 import CreatePost from "@/components/pages/create-post/CreatePost";
 import { useEffect, useState } from "react";
 import { getUserId } from "../lib/actions";

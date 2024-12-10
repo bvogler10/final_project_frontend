@@ -1,4 +1,7 @@
 "use client";
+// File: browse-patterns/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /browse-patterns which displays a search bar to show patterns that can be searched for
 
 import PatternSearch from "@/components/pages/browse-patterns/PatternSearch";
 import { PatternListItem } from "@/components/pages/home/PatternListItem";

@@ -1,4 +1,10 @@
 "use client";
+
+// File: explore/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /explore which displays posts by all users (if not logged in) or posts by users 
+// the current user does not follow
+
 import { ExploreComponent } from "@/components/pages/home/ExplorePage";
 import { useEffect, useState } from "react";
 import { getUserId } from "../lib/actions";

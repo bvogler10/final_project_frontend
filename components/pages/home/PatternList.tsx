@@ -1,4 +1,6 @@
-// Define the PostList component
+// File: PatternList.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the Pattern List component (a list of pattern objects)
 
 import { FC, useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";

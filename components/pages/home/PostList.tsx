@@ -1,4 +1,6 @@
-// Define the PostList component
+// File: PostList.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component displaying a list of Post objects
 
 import { FC, useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";

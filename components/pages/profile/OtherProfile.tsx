@@ -1,5 +1,9 @@
 "use client";
 
+// File: OtherProfile.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to show another user's profile page
+
 import { useEffect, useState } from "react";
 import { Home, LinkIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

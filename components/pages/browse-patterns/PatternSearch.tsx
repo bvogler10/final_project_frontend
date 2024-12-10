@@ -1,5 +1,9 @@
+// File: PatternSearch.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a component to search patterns
+
 import { Input } from "@/components/ui/input";
-// a component to search patterns
+
 export default function PatternSearch({
   value,
   onChange,

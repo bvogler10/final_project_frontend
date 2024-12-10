@@ -1,5 +1,8 @@
 "use client";
 
+// File: NavBar.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the navbar component used in the layout root
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Home, SearchIcon } from "lucide-react";

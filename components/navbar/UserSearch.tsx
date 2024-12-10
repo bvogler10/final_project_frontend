@@ -1,3 +1,7 @@
+// File: UserSearch.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the user search bar component
+
 import {
   Command,
   CommandEmpty,
@@ -11,6 +15,7 @@ import { User } from "@/types/User";
 import apiService from "@/app/services/apiService";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
+//properties of the search
 interface UsernameSearchProps {
   onSelect: (user: User | null) => void; // Callback to handle user selection
 }

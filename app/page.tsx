@@ -1,4 +1,9 @@
 "use client";
+
+// File: page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: base page for url / that displays either home or the welcome component
+
 import { useEffect, useState } from "react";
 import { getUserId } from "./lib/actions";
 import WelcomePage from "@/components/WelcomePage";

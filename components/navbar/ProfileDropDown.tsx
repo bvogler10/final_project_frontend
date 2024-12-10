@@ -1,5 +1,9 @@
 "use client";
 
+// File: ProfileDropDown.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the profile dropdown accessible from the user icon containing login/singup or my profile/logout
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -44,6 +48,7 @@ export default function ProfileDropDown({ userId }: ProfileDropDownProps) {
 
   return (
     <div className="hidden md:flex items-center">
+      {/* dropdown component */}
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar className="cursor-pointer">

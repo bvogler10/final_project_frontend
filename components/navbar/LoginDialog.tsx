@@ -1,5 +1,9 @@
 "use client";
 
+// File: LoginDialog.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the Login dialog component (popup for logging in)
+
 import {
   Dialog,
   DialogContent,
@@ -89,7 +93,7 @@ export default function LoginDialog() {
       >
         Log In
       </Button>
-
+      {/* dialog UI component */}
       <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>

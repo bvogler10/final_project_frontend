@@ -1,5 +1,9 @@
 "use client";
 
+// File: PostListItem.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component for an individual post item in the list
+
 import { FC, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

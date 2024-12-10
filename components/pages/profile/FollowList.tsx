@@ -1,3 +1,7 @@
+// File: FollowList.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the follow list component (showing in the dialog)
+
 import { Follow } from "@/types/Follow";
 import { FollowListItem } from "./FollowListItem";
 

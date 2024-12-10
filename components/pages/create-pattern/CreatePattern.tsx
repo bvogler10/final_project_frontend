@@ -1,5 +1,9 @@
 "use client";
 
+// File: CreatePattern.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component to create a pattern object
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

@@ -1,5 +1,9 @@
 "use client";
 
+// File: profiles/[user_id]/page.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the page at the url /patterns/[pattern-id] which displays a profile specified by user_id
+
 import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import MyProfile from "@/components/pages/profile/MyProfile";

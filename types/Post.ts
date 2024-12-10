@@ -1,3 +1,6 @@
+// File: Post.ts
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the Post type object
 import { UUID } from "crypto";
 import { User } from "./User";
 

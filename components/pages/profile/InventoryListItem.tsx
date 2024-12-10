@@ -1,5 +1,9 @@
 "use client";
 
+// File: InventoryListItem.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the component for an individual inventory item
+
 import { FC } from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { InventoryItem } from "@/types/InventoryItem";

@@ -1,5 +1,9 @@
 "use client";
 
+// File: CreatePost.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the post creation form component
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

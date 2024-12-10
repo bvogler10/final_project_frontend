@@ -1,3 +1,7 @@
+// File: EditProfileDialog.tsx
+// Author: Brinja Vogler (bvogler@bu.edu)
+// Description: a file for the edit profile pop up component
+
 import apiService from "@/app/services/apiService";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -49,6 +53,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
 
     console.log(formData);
 
+    //use the apiService to call the backend
     const response = await apiService.put("/api/update_user", formData);
 
     if (response.message) {
