@@ -1,12 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -26,6 +21,7 @@ interface PostProps {
   isFollowing: boolean;
 }
 
+// a function to generate the correct string for how long ago the post was made
 const getTimeAgo = (date: Date): string => {
   const now = new Date();
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -52,12 +48,14 @@ const getTimeAgo = (date: Date): string => {
   return "just now";
 };
 
+// post list item component, when clicked opens a dialog to show the expanded post
 export const PostListItem: FC<PostProps> = ({ post, isFollowing }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
+  // handles the follow button to follow this user
   const handleFollow = async () => {
     const otherUser = post.user_info.id;
     try {

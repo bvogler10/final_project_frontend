@@ -12,6 +12,8 @@ interface HomeComponentProps {
   userId: string | null;
 }
 
+// a component to show the posts and patterns from users you follow
+
 export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
   const [activeTab, setActiveTab] = useState("posts");
 
@@ -26,7 +28,8 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
             Discover posts and patterns shared by users you follow!
           </p>
         </div>
-        {userId && activeTab==="posts" ? (
+        {/* if we are in the post tab, show a create post button, otherwise create pattern */}
+        {userId && activeTab === "posts" ? (
           <Link href="/create-post">
             <Button className="mt-4 sm:mt-0 sm:ml-4">
               <PlusSquare className="h-5 w-5" /> Create Post
@@ -46,19 +49,22 @@ export const HomeComponent: FC<HomeComponentProps> = ({ userId }) => {
           <TabsTrigger value="patterns">Patterns</TabsTrigger>
         </TabsList>
         <TabsContent value="posts" className="mt-6">
+          {/* show post lists and pattern lists */}
           {userId ? (
-            <PostList endpoint="/api/posts/following" isFollowing={true}/>
+            <PostList endpoint="/api/posts/following" isFollowing={true} />
           ) : (
-            <PostList endpoint="/api/posts" isFollowing={true}/>
+            <PostList endpoint="/api/posts" isFollowing={true} />
           )}
         </TabsContent>
         <TabsContent value="patterns" className="mt-6">
-        {userId ? (
-            <PatternList endpoint="/api/patterns/following" isFollowing={true}/>
+          {userId ? (
+            <PatternList
+              endpoint="/api/patterns/following"
+              isFollowing={true}
+            />
           ) : (
-            <PostList endpoint="/api/patterns/" isFollowing={true}/>
+            <PostList endpoint="/api/patterns/" isFollowing={true} />
           )}
-
         </TabsContent>
       </Tabs>
     </main>

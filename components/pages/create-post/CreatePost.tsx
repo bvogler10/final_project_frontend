@@ -58,7 +58,7 @@ export default function CreatePost() {
   const [previewImage, setPreviewImage] = useState<string | null>(null); //store preview URL
   const [caption, setCaption] = useState<string | null>(null);
   const router = useRouter();
-
+  // form instance 
   const postForm = useForm<PostFormValues>({
     resolver: zodResolver(postSchema),
     mode: "onSubmit",
@@ -68,6 +68,7 @@ export default function CreatePost() {
     },
   });
 
+  // handle an image being uploaded
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -75,7 +76,7 @@ export default function CreatePost() {
       setPreviewImage(previewUrl); // Generate a preview URL
     }
   };
-
+  // upon submission, create and send form data
   const handleSubmit = async (data: PostFormValues) => {
     const formData = new FormData();
     const user = await getUserId();
@@ -95,7 +96,7 @@ export default function CreatePost() {
       formData
     );
     console.log("Response", response);
-
+    // navigate to home
     setTimeout(() => {
       router.push("/");
     }, 1000);
@@ -114,6 +115,7 @@ export default function CreatePost() {
               <TabsTrigger value="preview">Preview</TabsTrigger>
             </TabsList>
             <TabsContent value="create">
+              {/* form fields */}
               <Form {...postForm}>
                 <form
                   onSubmit={postForm.handleSubmit(handleSubmit)}

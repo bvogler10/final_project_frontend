@@ -7,13 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+// options for type selection
 const TYPE_OPTIONS = [
   { value: "yarn", label: "Yarn" },
   { value: "hook_needle", label: "Hook/Needle" },
   { value: "other", label: "Other" },
 ];
 
+// display a dropdown of item types to choose from
 export function InventorySelect({
   value,
   onChange,
@@ -28,6 +29,7 @@ export function InventorySelect({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          {/* mapping each option */}
           {TYPE_OPTIONS.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

@@ -10,6 +10,7 @@ interface ExploreComponentProps {
   userId: string | null;
 }
 
+// explore is accessible even when logged out, the difference is you don't see your own posts
 export const ExploreComponent: FC<ExploreComponentProps> = ({ userId }) => {
   return (
     <main className="flex-1 container mx-auto py-6 bg-background text-foreground">
@@ -19,8 +20,8 @@ export const ExploreComponent: FC<ExploreComponentProps> = ({ userId }) => {
             Explore
           </h1>
           <p className="mt-2 text-lg text-muted-foreground">
-            Discover posts shared by other users. Get inspired and
-            share your own creations!
+            Discover posts shared by other users. Get inspired and share your
+            own creations!
           </p>
         </div>
         <Link href="/create-post">
@@ -31,8 +32,10 @@ export const ExploreComponent: FC<ExploreComponentProps> = ({ userId }) => {
       </div>
       <div className="mt-6">
         {userId ? (
+          // we are not following these people
           <PostList endpoint="/api/posts/explore" isFollowing={false} />
         ) : (
+          // we are not logged in so we cannot follow (do not show follow button)
           <PostList endpoint="/api/posts" isFollowing={true} />
         )}
       </div>

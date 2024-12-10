@@ -21,16 +21,17 @@ interface PatternListItemProps {
   isFollowing: boolean;
 }
 
+// an item in a pattern list
 export const PatternListItem: React.FC<PatternListItemProps> = ({
   pattern,
   isFollowing,
 }) => {
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false); //state for dialog description
 
   const toggleDescription = () => {
     setIsDescriptionExpanded(!isDescriptionExpanded);
   };
-
+  // each pattern has a follow button to follow users, so initiate a follow
   const handleFollow = async () => {
     const otherUser = pattern.creator_info.id;
     try {
@@ -62,6 +63,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
                 by {pattern.creator_info.username}
               </p>
             </div>
+            {/* follow button */}
             {!isFollowing && (
               <Button
                 onClick={() => handleFollow()}
@@ -103,6 +105,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
             <div>
               <h3 className="text-lg font-semibold mb-2">Description</h3>
               <div
+                // toggle the expansion of the description
                 className={`relative ${
                   isDescriptionExpanded ? "" : "max-h-40 overflow-hidden"
                 }`}
@@ -135,6 +138,7 @@ export const PatternListItem: React.FC<PatternListItemProps> = ({
             </div>
 
             <div className="mt-4">
+              {/* navigate to a pattern's own page */}
               <Link href={`${window.location.origin}/patterns/${pattern.id}`}>
                 <Button>Go to Pattern Details</Button>
               </Link>

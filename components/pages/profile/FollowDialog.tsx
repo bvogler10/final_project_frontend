@@ -15,7 +15,7 @@ interface FollowDialogProps {
   title: string;
   list: Follow[]; // Adjust type as needed
 }
-
+// dialog to show follows
 export const FollowDialog: FC<FollowDialogProps> = ({
   isOpen,
   onClose,

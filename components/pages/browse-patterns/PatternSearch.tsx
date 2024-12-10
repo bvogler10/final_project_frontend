@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-
+// a component to search patterns
 export default function PatternSearch({
   value,
   onChange,

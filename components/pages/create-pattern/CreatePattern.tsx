@@ -35,6 +35,7 @@ interface CreatePatternProps {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
 
+// schema for form values
 const patternSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description cannot be empty"),
@@ -57,11 +58,12 @@ const patternSchema = z.object({
 });
 
 type PatternFormValues = z.infer<typeof patternSchema>;
-
+// component for the pattern creation
 export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const router = useRouter();
 
+  // form instance
   const form = useForm<PatternFormValues>({
     resolver: zodResolver(patternSchema),
     mode: "onSubmit",
@@ -75,6 +77,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
 
   const handleSubmit = async (data: PatternFormValues) => {
     try {
+      // upon submission, create new form data with form information and send to backend
       const userId = profile;
       const formData = new FormData();
       formData.append("creator", userId);
@@ -99,7 +102,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
       console.log("error:", e);
     }
   };
-
+  // upon image upload, set a preview for the user
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -120,6 +123,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* form fields */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -161,6 +165,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Difficulty Level</FormLabel>
+                  {/* a dropdown component to select the difficulty */}
                   <PatternDifficultySelect
                     value={field.value || undefined}
                     onChange={field.onChange}
@@ -169,6 +174,7 @@ export const CreatePattern: React.FC<CreatePatternProps> = ({ profile }) => {
                 </FormItem>
               )}
             />
+            {/* handling the preview and new image uploads as well as removing image */}
             <FormField
               control={form.control}
               name="image"

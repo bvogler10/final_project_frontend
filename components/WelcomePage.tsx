@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { RibbonIcon as Yarn, Users, BookOpen, Heart } from 'lucide-react'
-import LoginDialog from '@/components/navbar/LoginDialog'
-import SignUpDialog from '@/components/navbar/SignUpDialog'
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { RibbonIcon as Yarn, Users, BookOpen, Heart } from "lucide-react";
+import LoginDialog from "@/components/navbar/LoginDialog";
+import SignUpDialog from "@/components/navbar/SignUpDialog";
+// page for logged out user (not able to access anything besides explore)
 export default function WelcomePage() {
   return (
     <div className="container mx-auto px-4 md:px-6">
@@ -15,12 +15,14 @@ export default function WelcomePage() {
                   Welcome to CloseKnit
                 </h1>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Connect, create, and share your passion for crochet and knitting with a community that cares.
+                  Connect, create, and share your passion for crochet and
+                  knitting with a community that cares.
                 </p>
               </div>
-              <div className="flex space-x-4"> {/* Use flexbox for horizontal alignment */}
-                <SignUpDialog/> {/* This will trigger the Sign Up dialog */}
-                <LoginDialog/>{/* This will trigger the Log In dialog */}
+              <div className="flex space-x-4">
+                <SignUpDialog /> {/* This will trigger the Sign Up dialog */}
+                <LoginDialog />
+                {/* This will trigger the Log In dialog */}
               </div>
             </div>
           </div>
@@ -72,6 +74,5 @@ export default function WelcomePage() {
         </section>
       </main>
     </div>
-  )
+  );
 }
-

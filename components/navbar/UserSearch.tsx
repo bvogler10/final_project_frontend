@@ -15,6 +15,7 @@ interface UsernameSearchProps {
   onSelect: (user: User | null) => void; // Callback to handle user selection
 }
 
+// a component to allow searching for the users' usernames and names
 export default function UsernameSearch({ onSelect }: UsernameSearchProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false); // Manage dropdown visibility
   const [users, setUsers] = useState<User[]>([]); // Hold fetched users
@@ -45,24 +46,25 @@ export default function UsernameSearch({ onSelect }: UsernameSearchProps) {
       }
 
       try {
+        // create queryParams for the name query and query backend
         const queryParams = new URLSearchParams();
         queryParams.append("search_query", searchQuery);
         const searchParams = queryParams.toString();
-        console.log("searching", searchParams);
         const response = await apiService.get(`/api/users/?${searchParams}`);
-        setUsers(response.data);
+        setUsers(response.data); //set the response to the users state
       } catch (error) {
         console.error("Error fetching users:", error);
         setUsers([]);
       }
     };
 
-    const debounceFetch = setTimeout(fetchUsers, 150); // Debounce to limit API calls
+    const debounceFetch = setTimeout(fetchUsers, 150); // delay fetch to limit api calls
     return () => clearTimeout(debounceFetch);
   }, [searchQuery]);
 
   return (
     <div className="relative w-full" ref={commandRef}>
+      {/* a searchbar and dropdown for results */}
       <Command shouldFilter={false} className="rounded-lg border shadow-md">
         <CommandInput
           placeholder="Search users..."
@@ -77,6 +79,7 @@ export default function UsernameSearch({ onSelect }: UsernameSearchProps) {
         {isOpen && (
           <CommandList className="absolute top-full mt-2 w-full z-10 bg-background rounded-lg border shadow-md">
             <CommandGroup>
+              {/* if there is at least one user, set the select events for each */}
               {users.length > 0 ? (
                 users.map((user) => (
                   <CommandItem
@@ -86,6 +89,7 @@ export default function UsernameSearch({ onSelect }: UsernameSearchProps) {
                       setIsOpen(false);
                     }}
                   >
+                    {/* show the user information */}
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={user.avatar} alt={user.username} />
@@ -105,6 +109,7 @@ export default function UsernameSearch({ onSelect }: UsernameSearchProps) {
                   </CommandItem>
                 ))
               ) : (
+                //  if nothing is found, show no results, if nothing was typed, prompt the user
                 <CommandEmpty>
                   {searchQuery.trim()
                     ? "No results found."

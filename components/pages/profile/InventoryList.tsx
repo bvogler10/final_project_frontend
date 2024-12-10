@@ -6,19 +6,22 @@ import { InventoryItem } from "@/types/InventoryItem";
 import { InventoryListItem } from "./InventoryListItem";
 import { getUserId } from "@/app/lib/actions";
 
+// component for inventory list
 export const InventoryList: FC = () => {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const getPosts = async () => {
-    const userId = await getUserId()
-    const tmpInventory = await apiService.get(`/api/inventory/${userId}`);
-    
-    setInventory(tmpInventory.data);
-  };
 
   useEffect(() => {
-    getPosts();
+    const getInventory = async () => {
+      // fetch the inventory
+      const userId = await getUserId();
+      const tmpInventory = await apiService.get(`/api/inventory/${userId}`);
+
+      setInventory(tmpInventory.data);
+    };
+    void getInventory();
   }, []);
 
+  // map the items
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       {inventory.map((item) => (

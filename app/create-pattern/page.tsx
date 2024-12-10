@@ -11,6 +11,7 @@ export default function CreatePostPage() {
 
   useEffect(() => {
     const getInfo = async () => {
+      // fetch user id
       const userId = await getUserId();
       setUser(userId);
     };

@@ -25,6 +25,7 @@ import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 import { toast } from "@/hooks/use-toast";
 
+// a schema to define the form fields
 const signupSchema = z.object({
   name: z.string().min(1, "Name is required"),
   username: z.string().min(1, "Username is required"),
@@ -37,7 +38,7 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function SignUpDialog() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-
+  // set the default values for the form and create instance
   const signupForm = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     mode: "onSubmit",
@@ -49,7 +50,7 @@ export default function SignUpDialog() {
       password2: "",
     },
   });
-
+  // when form is submitted, create formdata containing the information and send to backend
   const handleSignup = async (data: SignupFormValues) => {
     try {
       const formData = {
@@ -64,26 +65,27 @@ export default function SignUpDialog() {
         "/api/auth/register/",
         JSON.stringify(formData)
       );
-
+      // if the access token is present, lof the user in
       if (response.access) {
         handleLogin(response.user.pk, response.access, response.refresh);
         toast({
           title: "Success!",
           description: "You have successfully registered.",
         });
-
+        // close the dialog and refresh the page
         setIsSignupOpen(false);
         window.location.reload();
       }
     } catch {
       toast({
-        title: "Error"
+        title: "Error",
       });
     }
   };
 
   return (
     <>
+      {/* open the dialog */}
       <Button
         onClick={() => {
           setIsSignupOpen(true);
@@ -101,6 +103,7 @@ export default function SignUpDialog() {
               Create a new account by filling out the form below.
             </DialogDescription>
           </DialogHeader>
+          {/* form fields */}
           <Form {...signupForm}>
             <form
               onSubmit={signupForm.handleSubmit(handleSignup)}

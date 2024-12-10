@@ -10,23 +10,32 @@ interface PatternListProps {
   isFollowing: boolean;
 }
 
-export const PatternList: FC<PatternListProps> = ({ endpoint, isFollowing }) => {
+// a component for a list of patterns
+export const PatternList: FC<PatternListProps> = ({
+  endpoint,
+  isFollowing,
+}) => {
   const [patterns, setPatterns] = useState<Pattern[]>([]);
-  
 
   useEffect(() => {
     const getPosts = async () => {
+      // fetch from the specified endpoint
       const tmpPatterns = await apiService.get(endpoint);
-  
+
       setPatterns(tmpPatterns.data);
     };
-    void getPosts()
+    void getPosts();
   }, [endpoint]);
 
   return (
+    // map each pattern item to its own styled item
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {patterns.map((pattern) => (
-        <PatternListItem key={pattern.id} pattern={pattern} isFollowing={isFollowing}/>
+        <PatternListItem
+          key={pattern.id}
+          pattern={pattern}
+          isFollowing={isFollowing}
+        />
       ))}
     </div>
   );

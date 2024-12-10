@@ -8,13 +8,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// options for the dropdown with value and label
+
 const DIFFICULTY_OPTIONS = [
   { value: "beginner", label: "Beginner" },
   { value: "advanced_beginner", label: "Advanced Beginner" },
   { value: "intermediate", label: "Intermediate" },
   { value: "advanced", label: "Advanced" },
   { value: "expert", label: "Expert" },
-
 ];
 
 export function PatternDifficultySelect({
@@ -31,6 +32,7 @@ export function PatternDifficultySelect({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          {/* map each option to a select item */}
           {DIFFICULTY_OPTIONS.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

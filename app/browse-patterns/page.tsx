@@ -33,6 +33,7 @@ export default function BrowsePatterns() {
   // Debounce search query
   useEffect(() => {
     const handler = setTimeout(() => {
+      // put a 400ms delay to prevent calling the database every time a letter is typed
       setDebouncedSearchQuery(searchQuery); // Update debounced value after delay
     }, 400); // 400ms debounce delay
 
@@ -44,6 +45,7 @@ export default function BrowsePatterns() {
   useEffect(() => {
     const fetchSearchPatterns = async () => {
       try {
+        // create search parameters using the delayed search query and fetch
         const queryParams = new URLSearchParams();
         queryParams.append("search_query", debouncedSearchQuery);
         const searchParams = queryParams.toString();
@@ -52,7 +54,7 @@ export default function BrowsePatterns() {
           `/api/patterns/search_patterns/?${searchParams}`
         );
         console.log("setting patterns as:", fetchedPatterns);
-
+        // set the data received to the patterns
         setPatterns(fetchedPatterns.data);
       } catch (error) {
         console.error("Failed to fetch patterns:", error);
@@ -80,7 +82,7 @@ export default function BrowsePatterns() {
           onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
         />
       </div>
-
+      {/* show the patterns once fetched */}
       {patterns && patterns.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {patterns.map((pattern) => (

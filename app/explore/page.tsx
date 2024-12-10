@@ -9,7 +9,7 @@ export default function Explore() {
 
   useEffect(() => {
     const getInfo = async () => {
-      const userId = await getUserId();
+      const userId = await getUserId(); // fetch userId
       setUser(userId);
       setLoading(false); // Set loading to false when data is loaded
     };
@@ -21,7 +21,7 @@ export default function Explore() {
   }
   return (
     <>
-    {/* Show explore tailored to user OR logged out explore view (all except user or all users) */}
+      {/* Show explore tailored to user OR logged out explore view (all except user or all users) */}
       {user ? (
         <ExploreComponent userId={user} />
       ) : (

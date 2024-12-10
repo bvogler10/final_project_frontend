@@ -18,11 +18,12 @@ import { CreateInventoryItemDialog } from "./CreateInventoryItemDialog";
 interface ActionsDropDownProps {
   userId: string | null;
 }
-
+// a drodown in the user profile to handle actions such as updating profile, creating post
 export default function ActionsDropDown({ userId }: ActionsDropDownProps) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    // get user information
     const fetchUser = async () => {
       try {
         const userInfo = await apiService.get(`/api/user/${userId}`);
@@ -58,6 +59,7 @@ export default function ActionsDropDown({ userId }: ActionsDropDownProps) {
                 asChild
                 className="cursor-pointer justify-center items-center text-center"
               >
+                {/* link to create post */}
                 <Link href={`/create-post`}>Create Post</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -65,6 +67,7 @@ export default function ActionsDropDown({ userId }: ActionsDropDownProps) {
                 asChild
                 className="cursor-pointer justify-center items-center text-center"
               >
+                {/* link to create pattern */}
                 <Link href={`/create-pattern`}>Create Pattern</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -72,6 +75,7 @@ export default function ActionsDropDown({ userId }: ActionsDropDownProps) {
                 asChild
                 className="cursor-pointer justify-center items-center text-center"
               >
+                {/* show the edit profile dialog */}
                 {user && <EditProfileDialog profile={user} />}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -79,6 +83,7 @@ export default function ActionsDropDown({ userId }: ActionsDropDownProps) {
                 asChild
                 className="cursor-pointer justify-center items-center text-center"
               >
+                {/* show create inventory dialog */}
                 {user && <CreateInventoryItemDialog profile={user} />}
               </DropdownMenuItem>
             </>

@@ -4,7 +4,7 @@ import { FollowListItem } from "./FollowListItem";
 interface FollowListProps {
   follows: Follow[];
 }
-
+// a list of follow items (user info)
 export const FollowList: React.FC<FollowListProps> = ({ follows }) => {
   return (
     <div className="flex flex-col">

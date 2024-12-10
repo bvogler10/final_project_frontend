@@ -25,6 +25,7 @@ import { toast } from "@/hooks/use-toast";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 
+// a schema for the form (required values etc)
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
   email: z.string().email("Invalid email address"),
@@ -34,9 +35,9 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginDialog() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false); //track dialog state
 
-
+  // setting default values for the form and creating an instance of the fomr
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     mode: "onSubmit",
@@ -47,8 +48,10 @@ export default function LoginDialog() {
     },
   });
 
+  // upon submission, use the form values to call the backend
   const login = async (data: LoginFormValues) => {
     try {
+      // create formData to send
       const formData = {
         username: data.username,
         email: data.email,
@@ -66,17 +69,18 @@ export default function LoginDialog() {
           title: "Success!",
           description: "You have successfully logged in.",
         });
-
+        // close the dialog and reload the page
         setIsLoginOpen(false);
         window.location.reload();
       }
     } catch (error) {
-     console.error(error)
+      console.error(error);
     }
   };
 
   return (
     <>
+      {/* open the dialog */}
       <Button
         onClick={() => {
           setIsLoginOpen(true);
@@ -94,6 +98,7 @@ export default function LoginDialog() {
               Please enter your credentials.
             </DialogDescription>
           </DialogHeader>
+          {/* form fields below */}
           <Form {...loginForm}>
             <form
               onSubmit={loginForm.handleSubmit(login)}

@@ -21,7 +21,9 @@ interface MyProfileProps {
   profile: User;
 }
 
+// component to display profile information
 export default function MyProfile({ profile }: MyProfileProps) {
+  // states for followers and follower dialog
   const [followers, setFollowers] = useState<Follow[]>([]);
   const [following, setFollowing] = useState<Follow[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,6 +31,7 @@ export default function MyProfile({ profile }: MyProfileProps) {
   const [dialogList, setDialogList] = useState<Follow[]>([]);
 
   useEffect(() => {
+    // get the user followers and following
     const getInfo = async () => {
       const userId = await getUserId();
       const followers = await apiService.get(`/api/user/${userId}/followers`);
@@ -50,6 +53,7 @@ export default function MyProfile({ profile }: MyProfileProps) {
   return (
     <div className="container w-full mx-auto py-8">
       <div className="container w-full mx-auto py-8 px-4">
+        {/* display the user's information */}
         <Card className="overflow-hidden border-none">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
@@ -101,7 +105,7 @@ export default function MyProfile({ profile }: MyProfileProps) {
             </div>
           </CardContent>
         </Card>
-
+        {/* show followers/following in dialogs */}
         <FollowDialog
           isOpen={isDialogOpen}
           onClose={() => setIsDialogOpen(false)}
@@ -109,23 +113,27 @@ export default function MyProfile({ profile }: MyProfileProps) {
           list={dialogList}
         />
       </div>
-
       <Tabs defaultValue="posts">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="posts">My Posts</TabsTrigger>
           <TabsTrigger value="patterns">My Patterns</TabsTrigger>
           <TabsTrigger value="inventory">My Inventory</TabsTrigger>
         </TabsList>
+        {/* post tab */}
+
         <TabsContent value="posts" className="mt-6">
           <div className="grid gap-4">
+            {/* fetch own posts */}
             <PostList
               endpoint={`/api/user_posts/${profile.id}`}
               isFollowing={true}
             />
           </div>
         </TabsContent>
+        {/* patterns tab */}
         <TabsContent value="patterns" className="mt-6">
           <div className="grid gap-4">
+            {/* fetch own patterns */}
             <PatternList
               endpoint={`/api/user_patterns/${profile.id}`}
               isFollowing={true}

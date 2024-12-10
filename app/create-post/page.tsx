@@ -12,7 +12,7 @@ export default function CreatePostPage() {
   useEffect(() => {
     const getInfo = async () => {
       const userId = await getUserId(); //call actions to retrieve from cookies
-      setUser(userId);
+      setUser(userId); //store userId
     };
     getInfo();
   }, []);

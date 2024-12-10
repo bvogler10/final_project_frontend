@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface FollowListItemProps {
   follow: Follow;
 }
-
+// an item for follow, shows the username, avatar, name
 export const FollowListItem: FC<FollowListItemProps> = ({ follow }) => {
   const followInfo = follow.follow_info;
   const router = useRouter();

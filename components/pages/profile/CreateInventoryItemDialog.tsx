@@ -32,7 +32,7 @@ interface CreateInventoryItemDialogProps {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
 
-// Zod schema for the experience form
+//  schema for the inventory form
 const inventorySchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
@@ -54,15 +54,15 @@ const inventorySchema = z.object({
     }),
 });
 
-// Type for the experience form values
 type InventoryFormValues = z.infer<typeof inventorySchema>;
 
+// component for dialog of inventory creation
 export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
   profile,
 }) => {
   const [isCreateInventoryOpen, setIsCreateInventoryOpen] = useState(false);
   const router = useRouter();
-
+  // form instance with default values
   const inventoryForm = useForm<InventoryFormValues>({
     resolver: zodResolver(inventorySchema),
     mode: "onSubmit",
@@ -74,6 +74,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
     },
   });
 
+  // upon submission create formdata with form values and send to backend
   const handleSubmit = async (data: InventoryFormValues) => {
     try {
       const userId = profile.id;
@@ -164,7 +165,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
                     <FormLabel>Item Type</FormLabel>
                     <FormControl>
                       <InventorySelect
-                        value={field.value || undefined} // Convert null to undefined for compatibility
+                        value={field.value || undefined}
                         onChange={field.onChange}
                       />
                     </FormControl>
@@ -172,6 +173,7 @@ export const CreateInventoryItemDialog: FC<CreateInventoryItemDialogProps> = ({
                   </FormItem>
                 )}
               />
+              {/* handle an image */}
               <FormField
                 control={inventoryForm.control}
                 name="image"

@@ -10,12 +10,14 @@ import { usePathname, useRouter } from "next/navigation";
 import type { User } from "@/types/User";
 import { useEffect, useState } from "react";
 
+// a component for the navbar
 export const NavBar = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
+    // fetching the userId for use
     const fetchUserId = async () => {
       const id = await getUserId();
       setUserId(id);
@@ -23,19 +25,21 @@ export const NavBar = () => {
     fetchUserId();
   }, []);
 
+  // a function passed to the search bar Command to handle clicks
   const handleUserSelect = (user: User | null) => {
     if (user) {
       router.push(`/profiles/${user.id}`);
     }
   };
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => pathname === path; //to track which tab is active on the navbar
 
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center w-full px-4 bg-popover">
         <div className="mr-4 hidden md:flex">
           <nav className="flex items-center space-x-6 text-sm font-medium">
+            {/* icon link to hoome */}
             <Link href="/" className="text-2xl font-bold flex items-center">
               <img
                 src="/purple_yarn_ball.png"
@@ -44,6 +48,7 @@ export const NavBar = () => {
               />
               CloseKnit
             </Link>
+            {/* word link to home, change color based on if it is active */}
             <Link
               href="/"
               className={`transition-colors ${
@@ -52,6 +57,7 @@ export const NavBar = () => {
             >
               Home
             </Link>
+            {/* link to explore page, change color based on if it is active */}
             <Link
               href="/explore"
               className={`transition-colors ${
@@ -62,7 +68,7 @@ export const NavBar = () => {
             >
               Explore
             </Link>
-
+            {/* link to browse-patterns page, change color based on if it is active */}
             <Link
               href="/browse-patterns"
               className={`transition-colors ${
@@ -77,9 +83,8 @@ export const NavBar = () => {
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            {userId && (
-              <UsernameSearch onSelect={handleUserSelect} />
-            )}
+            {/* pass the handleUserSelect function to the search bar */}
+            {userId && <UsernameSearch onSelect={handleUserSelect} />}
           </div>
           <nav className="flex items-center">
             <Button variant="ghost" size="icon" className="md:hidden">
@@ -90,6 +95,7 @@ export const NavBar = () => {
               <SearchIcon />
               <span className="sr-only">Search</span>
             </Button>
+            {/* the dropdown for user icon in the upper right */}
             <ProfileDropDown userId={userId} />
           </nav>
         </div>

@@ -17,8 +17,9 @@ import { FC, useRef, useState } from "react";
 interface EditProfileDialogProps {
   profile: User;
 }
-
+// component for editing the profile
 export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
+  // states for holding on to the data from the form
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const editedProfile = profile;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -32,10 +33,11 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({ profile }) => {
     if (file) {
       setAvatar(file);
       const previewUrl = URL.createObjectURL(file); //Generate a preview URL
-      setPreviewImage(previewUrl); //Generate a preview URL
+      setPreviewImage(previewUrl);
     }
   };
 
+  // handle the submission, send put request with the changed data
   const handleEdit = async () => {
     const formData = new FormData();
 
