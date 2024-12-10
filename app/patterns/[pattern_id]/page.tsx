@@ -75,11 +75,9 @@ export default function PatternDetailPage() {
 
         <div className="mb-8">
           <div className="relative w-full aspect-square">
-            <Image
+            <img
               src={pattern.image_url}
               alt={pattern.name}
-              layout="fill"
-              objectFit="cover"
               className="rounded-lg"
             />
           </div>
